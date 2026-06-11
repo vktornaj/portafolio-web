@@ -1,28 +1,5 @@
 ---
 import { proyectos } from '../data/proyectos';
-import { obtenerRepos } from '../lib/github';
-
-// Datos de GitHub (build time). Si no hay token o falla, los valores son null
-// y cada tarjeta cae al contenido manual.
-const datosGithub = await obtenerRepos(proyectos.map((p) => p.repo));
-
-function formatoFecha(iso: string | null): string | null {
-  if (!iso) return null;
-  return new Date(iso).toLocaleDateString('es-MX', { month: 'short', year: 'numeric' });
-}
-
-// Mezcla: lo manual gana; GitHub rellena lo que falte y aporta stars/fecha/url.
-const tarjetas = proyectos.map((p) => {
-  const gh = datosGithub.get(p.repo) ?? null;
-  return {
-    ...p,
-    titulo: p.titulo || gh?.nombre || 'Proyecto',
-    descripcion: p.descripcion || gh?.descripcion || 'Proyecto disponible en GitHub.',
-    url: gh?.url || `https://github.com/${p.repo}`,
-    stars: gh?.stars ?? null,
-    actualizado: formatoFecha(gh?.actualizado ?? null),
-  };
-});
 ---
 
 <div class="seccion-portafolio" id="portafolio">
@@ -41,7 +18,7 @@ const tarjetas = proyectos.map((p) => {
     </button>
     <div class="carrusel-contenido" id="carruselId">
       {
-        tarjetas.map((p) => (
+        proyectos.map((p) => (
           <div class={`elemento-carrusel ${p.clase} ${p.screenshot ? 'tiene-imagen' : ''}`}>
             <div class="caja-brillo"></div>
             {p.screenshot && (
@@ -59,32 +36,20 @@ const tarjetas = proyectos.map((p) => {
                     <i class={ic.icon} title={ic.title} />
                   ))}
                 </div>
-                <div class="proyecto-stats">
-                  {p.stars !== null && (
-                    <span class="stat" title="Stars en GitHub">
-                      <i class="fas fa-star" />
-                      {p.stars}
-                    </span>
-                  )}
-                  {p.actualizado && (
-                    <span class="stat" title="Última actualización">
-                      <i class="fas fa-history" />
-                      {p.actualizado}
-                    </span>
-                  )}
-                </div>
               </div>
               <div class="proyecto-enlaces">
-                <a
-                  class="enlace-proyecto"
-                  href={p.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="Ver repositorio"
-                >
-                  <i class="fab fa-github" />
-                  <span>Código</span>
-                </a>
+                {p.codigo && (
+                  <a
+                    class="enlace-proyecto"
+                    href={p.codigo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Ver repositorio"
+                  >
+                    <i class="fab fa-github" />
+                    <span>Código</span>
+                  </a>
+                )}
                 {p.demo && (
                   <a
                     class="enlace-proyecto enlace-demo"
@@ -382,28 +347,6 @@ const tarjetas = proyectos.map((p) => {
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding-top: 0.9rem;
-  }
-
-  /* Estadísticas de GitHub (stars, última actualización) */
-  .proyecto-stats {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--card-text-desc);
-  }
-
-  .proyecto-stats .stat {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    white-space: nowrap;
-    opacity: 0.9;
-  }
-
-  .proyecto-stats .fa-star {
-    color: #f5c518;
   }
 
   /* Enlaces a código y demo */
