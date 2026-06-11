@@ -4,12 +4,21 @@ const linkedinUrl =
 ---
 
 <div class="contacto" id="contacto-id">
-  <span>¿Trabajamos juntos?</span>
+  <div class="contacto-glow"></div>
+  
+  <div class="contacto-header">
+    <div class="respuesta-badge">
+      <span class="dot-badge"></span>
+      <span>Respondo rápido</span>
+    </div>
+    <span>¿Trabajamos juntos?</span>
+  </div>
+  
   <p class="contacto-texto">
-    Si tienes un proyecto en mente o quieres saber más sobre mi trabajo,
-    conectemos por LinkedIn. Respondo todos los mensajes.
+    Si tienes un proyecto en mente, buscas un colaborador o simplemente quieres hablar de backend y machine learning, conectemos en LinkedIn.
   </p>
-  <a href={linkedinUrl} target="_blank" rel="noopener" class="btn-linkedin">
+  
+  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="btn-linkedin">
     <i class="fab fa-linkedin-in"></i>
     <span>Conectar en LinkedIn</span>
   </a>
@@ -21,29 +30,102 @@ const linkedinUrl =
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
-    padding: 3rem 2.5rem;
+    padding: 3.2rem 2.8rem;
     box-shadow: var(--glass-shadow);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  .contacto > span {
-    color: var(--color-texto-primario);
-    font-size: 2rem;
+  .contacto:hover {
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 15px rgba(99, 102, 241, 0.08);
+  }
+
+  /* Efecto de luz difusa trasera */
+  .contacto-glow {
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 25rem;
+    height: 25rem;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+  }
+
+  .contacto:hover .contacto-glow {
+    transform: scale(1.1);
+  }
+
+  .contacto-header {
+    z-index: 1;
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+
+  .respuesta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 100px;
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .dot-badge {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-contraste-fuerte);
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+  }
+
+  .dot-badge::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-contraste-fuerte);
+    animation: pulse-dot 2s cubic-bezier(0.25, 0, 0, 1) infinite;
+  }
+
+  .respuesta-badge span:last-child {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     font-weight: 700;
+    color: var(--color-contraste-fuerte);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contacto > .contacto-header > span {
+    color: var(--color-texto-primario);
+    font-size: 2.2rem;
+    font-weight: 900;
     display: block;
-    margin-bottom: 1rem;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--color-texto-primario) 50%, var(--color-azul-claro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .contacto-texto {
     font-size: 1.05rem;
     line-height: 1.7;
     opacity: 0.8;
-    margin: 0 0 2rem 0;
-    max-width: 32rem;
+    margin: 0 0 2.2rem 0;
+    max-width: 34rem;
+    z-index: 1;
   }
 
   .btn-linkedin {
@@ -52,34 +134,68 @@ const linkedinUrl =
     gap: 0.7rem;
     text-decoration: none;
     color: white;
-    background: linear-gradient(135deg, var(--color-azul-claro), var(--color-azul-vivo));
-    border: 1px solid var(--color-azul-claro);
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-sm);
-    padding: 0.95rem 2rem;
+    padding: 0.95rem 2.2rem;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: pointer;
     transition: var(--transition-smooth);
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    z-index: 1;
   }
 
-  .btn-linkedin > i {
-    font-size: 1.25rem;
+  .btn-linkedin i {
+    font-size: 1.2rem;
+    transition: var(--transition-smooth);
   }
 
   .btn-linkedin:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(79, 70, 229, 0.45);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.45);
+    background: linear-gradient(135deg, #4338ca, #2563eb);
+  }
+
+  .btn-linkedin:hover i {
+    transform: scale(1.1);
+  }
+
+  @keyframes pulse-dot {
+    0% {
+      transform: scale(0.75);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 768px) {
     .contacto {
-      padding: 2rem 1.5rem;
+      padding: 2.2rem 1.8rem;
       align-items: center;
       text-align: center;
     }
-    .contacto > span {
-      margin-top: 0;
+    .contacto-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .contacto-texto {
+      text-align: center;
     }
     .btn-linkedin {
       width: 100%;

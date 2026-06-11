@@ -1,8 +1,8 @@
 ---
 const links = [
-  { href: '#nav-bar-id', icon: 'fas fa-home', label: 'Sobre mí' },
-  { href: '#portafolio', icon: 'fas fa-folder', label: 'Portafolio' },
-  { href: '#contacto-id', icon: 'fas fa-id-card', label: 'Contacto' },
+  { href: '#nav-bar-id', icon: 'fas fa-home', label: 'Sobre mí', sectionId: 'sobre-mi' },
+  { href: '#portafolio', icon: 'fas fa-folder', label: 'Portafolio', sectionId: 'portafolio' },
+  { href: '#contacto-id', icon: 'fas fa-id-card', label: 'Contacto', sectionId: 'contacto-id' },
 ];
 ---
 
@@ -11,9 +11,9 @@ const links = [
     {
       links.map((link) => (
         <li>
-          <a href={link.href}>
+          <a href={link.href} data-section={link.sectionId}>
             <i class={link.icon} />
-            {link.label}
+            <span>{link.label}</span>
           </a>
         </li>
       ))
@@ -24,23 +24,23 @@ const links = [
 <style>
   .nav-movil {
     position: fixed;
-    bottom: 1.2rem;
+    bottom: 1.5rem;
     left: 5%;
     right: 5%;
-    height: 60px;
+    height: 64px;
     width: 90%;
-    max-width: 500px;
+    max-width: 420px;
     margin: 0 auto;
     border-radius: 40px;
     border: 1px solid var(--glass-border);
-    background: rgba(18, 24, 38, 0.85);
+    background: rgba(9, 13, 22, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(99, 102, 241, 0.05);
     display: none;
     z-index: 99;
     overflow: hidden;
-    transition: bottom 0.3s ease;
+    transition: bottom 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .nav-movil > ul {
@@ -54,15 +54,11 @@ const links = [
 
   .nav-movil > ul > li {
     margin-left: 0;
-    width: 25%;
+    flex: 1;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .nav-movil > ul > li:hover {
-    background: none;
   }
 
   .nav-movil > ul > li > a {
@@ -70,20 +66,32 @@ const links = [
     flex-direction: column;
     align-items: center;
     color: var(--color-texto-primario);
-    opacity: 0.7;
-    font-size: 0.75rem;
-    gap: 0.2rem;
-    font-weight: 500;
+    opacity: 0.6;
+    font-size: 0.7rem;
+    gap: 0.25rem;
+    font-weight: 600;
     transition: var(--transition-smooth);
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
   }
 
-  .nav-movil > ul > li > a:hover {
+  .nav-movil > ul > li > a:hover,
+  .nav-movil > ul > li > a.active {
     opacity: 1;
     color: var(--color-azul-claro);
   }
 
+  .nav-movil > ul > li > a.active i {
+    transform: translateY(-2px) scale(1.1);
+    color: var(--color-azul-claro);
+    text-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+  }
+
   .nav-movil > ul > li > a > i {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+    transition: var(--transition-smooth);
   }
 
   @media (max-width: 768px) {
@@ -96,30 +104,78 @@ const links = [
 <script>
   // Oculta/muestra la barra inferior según la dirección del scroll.
   const navMovil = document.querySelector('.nav-movil') as HTMLElement | null;
-  const links = document.getElementsByTagName('a');
+  const links = document.querySelectorAll('.nav-movil a');
   let active = true;
 
-  Array.from(links).forEach((link) => {
-    link.addEventListener('click', () => {
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      // Evitar saltos bruscos antes del scroll suave
       active = false;
+      
+      // Resaltar manualmente el clickeado
+      links.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
+      
       setTimeout(() => {
         active = true;
-      }, 100);
+      }, 800);
     });
   });
 
+  // Scroll esconder/mostrar
   let scrollPos = 0;
   let navPos = 0;
+  
   window.addEventListener('scroll', () => {
     if (!active) return;
-    if (document.body.getBoundingClientRect().top > scrollPos) {
-      navPos -= 10; // arriba
+    const currentTop = document.body.getBoundingClientRect().top;
+    if (currentTop > scrollPos) {
+      navPos -= 12; // hacia arriba -> mostrar
     } else {
-      navPos += 10; // abajo
+      navPos += 12; // hacia abajo -> esconder
     }
     if (navPos < 0) navPos = 0;
-    if (navPos > 70) navPos = 70;
-    if (navMovil) navMovil.style.bottom = '-' + navPos + 'px';
-    scrollPos = document.body.getBoundingClientRect().top;
+    if (navPos > 85) navPos = 85;
+    
+    if (navMovil) {
+      navMovil.style.transform = `translateY(${navPos}px)`;
+    }
+    scrollPos = currentTop;
+  });
+
+  // Observer para iluminar el link activo según sección
+  const sections = [
+    { id: 'sobre-mi', linkSelector: '[data-section="sobre-mi"]' },
+    { id: 'portafolio', linkSelector: '[data-section="portafolio"]' },
+    { id: 'contacto-id', linkSelector: '[data-section="contacto-id"]' }
+  ];
+
+  window.addEventListener('scroll', () => {
+    if (!active) return;
+    
+    let currentSection = '';
+    
+    // Encontrar sección visible
+    sections.forEach((sec) => {
+      const el = document.getElementById(sec.id);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        // Si la parte superior de la sección está por encima de la mitad de la pantalla
+        if (rect.top <= window.innerHeight / 2) {
+          currentSection = sec.id;
+        }
+      }
+    });
+
+    if (currentSection) {
+      links.forEach((link) => {
+        const dataSec = link.getAttribute('data-section');
+        if (dataSec === currentSection) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
   });
 </script>

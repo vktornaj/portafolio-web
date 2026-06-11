@@ -3,68 +3,97 @@ import RedesSociales from './RedesSociales.astro';
 ---
 
 <footer class="footer">
-  <div class="fila-1">Desarrollado por Eduardo García © 2026.</div>
-  <div class="fila-2">
-    <span>Redes Sociales:</span>
-    <RedesSociales />
+  <div class="footer-content">
+    <div class="col-copyright">
+      <span class="footer-brand">Eduardo García</span>
+      <span class="footer-copy">© 2026 • Desarrollado con pasión y código limpio.</span>
+    </div>
+    
+    <div class="col-social">
+      <span class="social-label">Redes Sociales</span>
+      <RedesSociales />
+    </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    color: var(--color-texto-primario);
-    height: auto;
-    padding: 3rem 0;
     grid-area: footer;
+    width: 100%;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 6rem;
+    padding: 3rem 0 5rem 0;
+  }
+
+  .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid var(--color-azul-claro2);
-    margin-top: 4rem;
+    width: 100%;
   }
 
-  .fila-1 {
-    margin-top: 0;
-    font-size: 0.9rem;
-    opacity: 0.7;
-    width: auto;
+  .col-copyright {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  .fila-2 {
-    margin-top: 0;
-    width: auto;
+  .footer-brand {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--color-texto-primario);
+  }
+
+  .footer-copy {
+    font-size: 0.85rem;
+    opacity: 0.6;
+    color: var(--color-texto-primario);
+  }
+
+  .col-social {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
-  .fila-2 > span {
-    display: inline-block;
-    margin-bottom: 0;
-    width: auto;
-    font-size: 0.9rem;
-    opacity: 0.7;
+  .social-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-azul-claro);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
-  /* .redes/.icon los renderiza <RedesSociales />: override cross-componente */
+  /* Override local de redes sociales en el footer */
   .footer :global(.redes) {
-    margin-bottom: 0;
+    gap: 0.6rem;
   }
 
   .footer :global(.icon) {
-    height: 2.2rem;
-    width: 2.2rem;
-    font-size: 1rem;
+    height: 2.3rem;
+    width: 2.3rem;
+    font-size: 0.95rem;
   }
 
   @media (max-width: 768px) {
     .footer {
-      flex-direction: column;
-      gap: 1.5rem;
-      text-align: center;
-      padding-bottom: 6rem;
+      padding-bottom: 7rem; /* Espacio extra para que no tape la barra inferior móvil */
     }
-    .fila-2 {
+    
+    .footer-content {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+    
+    .col-copyright {
+      align-items: center;
+    }
+    
+    .col-social {
       flex-direction: column;
       gap: 0.8rem;
     }

@@ -3,35 +3,77 @@ import RedesSociales from './RedesSociales.astro';
 ---
 
 <div class="sobre-mi" id="sobre-mi">
+  <div class="badge-disponibilidad">
+    <span class="dot-disponibilidad"></span>
+    <span class="badge-text">Disponible para nuevos proyectos</span>
+  </div>
+
   <RedesSociales />
+
   <h1>
-    <span class="small-text dark-text">Soy Desarrollador</span> <br /> Backend y Machine Learning
+    <span class="eyebrow-text">HOLA, SOY EDUARDO GARCÍA</span>
+    <span class="main-title">
+      Desarrollador <span class="gradient-text">Backend</span> & <span class="gradient-text ml-color">Machine Learning</span>
+    </span>
   </h1>
-  <br />
-  <span>
-    Domino tecnologías del servidor que me permiten abordar todo tipo de proyectos,
-    tambien tengo gran pasion por la inteligencia artificial, me gustan los retos y hacer
-    proyectos escalables de calidad.
-  </span>
+
+  <p class="descripcion">
+    Diseño y construyo arquitecturas de servidor robustas y modelos de inteligencia artificial escalables. 
+    Me apasiona resolver problemas complejos y transformar datos en soluciones eficientes y de alta calidad.
+  </p>
+
+  <div class="tech-tags">
+    <span class="tech-tag"><i class="fab fa-python"></i> Python</span>
+    <span class="tech-tag"><i class="fab fa-node-js"></i> Node.js</span>
+    <span class="tech-tag"><i class="fas fa-brain"></i> PyTorch</span>
+    <span class="tech-tag"><i class="fas fa-database"></i> SQL</span>
+    <span class="tech-tag"><i class="fab fa-docker"></i> Docker</span>
+  </div>
+
   <div class="accesos-rapidos">
-    <a href="#portafolio">Portafolio</a>
+    <a href="#portafolio" class="btn-primary">
+      <span>Ver Portafolio</span>
+      <i class="fas fa-arrow-right"></i>
+    </a>
     <a
       href="https://drive.google.com/file/d/1TrdIb0DWQYv9YbZ_J5-ZHjfyrQ1Wz7Om/view?usp=sharing"
-      target="blank">CV</a
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-secondary"
     >
+      <i class="fas fa-download"></i>
+      <span>Descargar CV</span>
+    </a>
   </div>
-  <div class="ir-abajo">
-    <button class="boton-ir-abajo">
-      <i class="fas fa-chevron-down"></i>
-      <i class="fas fa-chevron-down"></i>
-    </button>
-  </div>
+
 </div>
 
 <div class="imagen" id="imagen">
+  <!-- Glowing background decorative circle -->
   <div class="fondo-foto-perfil"></div>
+
+  <!-- Profile Image Wrapper with Glass Frame -->
   <div class="mascara-foto-perfil">
-    <img src="/assets/perfil.png" alt="imagen de perfil" />
+    <div class="glass-inner-border"></div>
+    <img src="/assets/perfil.png" alt="Eduardo García - Foto de perfil" />
+  </div>
+
+  <!-- Floating Badge 1: Backend -->
+  <div class="floating-badge badge-backend">
+    <div class="badge-icon"><i class="fas fa-server"></i></div>
+    <div class="badge-content">
+      <span class="badge-title">Backend Dev</span>
+      <span class="badge-subtitle">APIs & DBs</span>
+    </div>
+  </div>
+
+  <!-- Floating Badge 2: Machine Learning -->
+  <div class="floating-badge badge-ml">
+    <div class="badge-icon"><i class="fas fa-brain"></i></div>
+    <div class="badge-content">
+      <span class="badge-title">Machine Learning</span>
+      <span class="badge-subtitle">AI & Models</span>
+    </div>
   </div>
 </div>
 
@@ -41,123 +83,189 @@ import RedesSociales from './RedesSociales.astro';
     flex-direction: column;
     grid-area: sobremi;
     justify-content: center;
+    align-items: flex-start;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  /* Título principal en Roboto Mono (estética "developer") */
-  .sobre-mi h1 {
-    font-family: var(--font-mono);
-    font-size: 3.4rem;
-    line-height: 1.3;
-    font-weight: 700;
-    margin-top: 1.5rem;
+  /* Badge de disponibilidad */
+  .badge-disponibilidad {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-    max-width: 18ch;
   }
 
-  /* El eyebrow "Soy Desarrollador" se mantiene en Roboto */
-  .sobre-mi h1 span.small-text {
-    font-family: var(--font-body);
-    font-size: 1.4rem;
-    font-weight: 500;
-    letter-spacing: 0;
+  .dot-disponibilidad {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-contraste-fuerte);
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+  }
+
+  .dot-disponibilidad::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid var(--color-contraste-fuerte);
+    animation: pulse-dot 1.8s cubic-bezier(0.25, 0, 0, 1) infinite;
+  }
+
+  .badge-text {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-contraste-fuerte);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Título principal con gradientes premium */
+  .sobre-mi h1 {
+    font-size: 3.2rem;
+    line-height: 1.25;
+    font-weight: 900;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.03em;
+    max-width: 20ch;
+  }
+
+  .eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 700;
     color: var(--color-azul-claro);
     display: block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
   }
 
-  .sobre-mi h1 span.dark-text {
-    opacity: 0.7;
-  }
-
-  .sobre-mi > span {
-    font-size: 1.15rem;
-    line-height: 1.7;
+  .main-title {
     color: var(--color-texto-primario);
-    opacity: 0.85;
-    max-width: 30rem;
+    display: block;
   }
 
+  .gradient-text {
+    background: linear-gradient(135deg, #818cf8 10%, #6366f1 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  .gradient-text.ml-color {
+    background: linear-gradient(135deg, #10b981 10%, #059669 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Descripción del perfil */
+  .descripcion {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: var(--color-texto-primario);
+    opacity: 0.8;
+    max-width: 44ch;
+    margin: 0 0 1.5rem 0;
+  }
+
+  /* Tags de tecnologías */
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-texto-primario);
+    opacity: 0.9;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 0.35rem 0.8rem;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition-smooth);
+  }
+
+  .tech-tag i {
+    font-size: 0.9rem;
+    color: var(--color-azul-claro);
+  }
+
+  .tech-tag:hover {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Accesos rápidos / Botones */
   .accesos-rapidos {
     display: flex;
-    gap: 1.2rem;
-    margin-top: 2rem;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
   }
 
-  .accesos-rapidos > a {
+  .btn-primary, .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.6rem;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.95rem;
     border-radius: var(--radius-sm);
-    padding: 0.8rem 1.8rem;
+    padding: 0.85rem 1.8rem;
+    transition: var(--transition-smooth);
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    color: white;
+    background: linear-gradient(135deg, var(--color-azul-claro), var(--color-azul-vivo));
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn-primary i {
     transition: var(--transition-smooth);
   }
 
-  .accesos-rapidos > a:first-child {
-    color: var(--color-texto-primario);
-    border: 1px solid var(--color-azul-claro2);
-    background: var(--glass-bg);
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45), 0 0 12px rgba(99, 102, 241, 0.15);
   }
 
-  .accesos-rapidos > a:first-child:hover {
+  .btn-primary:hover i {
+    transform: translateX(4px);
+  }
+
+  .btn-secondary {
+    color: var(--color-texto-primario);
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+  }
+
+  .btn-secondary:hover {
     background: var(--color-azul-claro2);
     border-color: var(--color-azul-claro);
     transform: translateY(-2px);
   }
 
-  .accesos-rapidos > a:last-child {
-    color: white;
-    background: var(--color-azul-claro);
-    border: 1px solid var(--color-azul-claro);
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-  }
 
-  .accesos-rapidos > a:last-child:hover {
-    background: var(--color-azul-vivo);
-    border-color: var(--color-azul-vivo);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
-  }
 
-  /* Boton ir abajo */
-  .ir-abajo {
-    margin-top: 4rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .boton-ir-abajo {
-    background: none;
-    border: none;
-    color: var(--color-texto-primario);
-    font-size: 1.4rem;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: var(--transition-smooth);
-    animation: bounce 2s infinite;
-  }
-
-  .boton-ir-abajo:hover {
-    opacity: 1;
-    color: var(--color-azul-claro);
-  }
-
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-10px);
-    }
-    60% {
-      transform: translateY(-5px);
-    }
-  }
-
-  /* Imagen de perfil */
+  /* Imagen de perfil e interactividad */
   .imagen {
     grid-area: imagen;
     justify-self: center;
@@ -167,69 +275,239 @@ import RedesSociales from './RedesSociales.astro';
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 22rem;
+    min-height: 24rem;
+    animation: float-slow 6s ease-in-out infinite alternate;
   }
 
   .fondo-foto-perfil {
     position: absolute;
-    background: linear-gradient(135deg, var(--color-azul-claro), var(--color-contraste-fuerte));
-    height: 18rem;
-    width: 18rem;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%);
+    height: 20rem;
+    width: 20rem;
     border-radius: 50%;
-    filter: blur(30px);
-    opacity: 0.35;
-    transition: var(--transition-smooth);
+    filter: blur(40px);
+    z-index: 0;
+    animation: pulse-glow 8s ease-in-out infinite alternate;
   }
 
   .mascara-foto-perfil {
-    position: absolute;
+    position: relative;
     height: 18rem;
     width: 18rem;
-    border-radius: 50%;
-    border: 3px solid var(--color-azul-claro2);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
     overflow: hidden;
     box-shadow: var(--glass-shadow);
-    background: var(--color-azul-fuerte);
-    transition: var(--transition-smooth);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-  .mascara-foto-perfil:hover {
-    border-color: var(--color-azul-claro);
-    transform: scale(1.03);
-  }
-
-  .mascara-foto-perfil > img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
     transition: var(--transition-smooth);
   }
 
-  .mascara-foto-perfil:hover > img {
-    transform: scale(1.05);
+  .glass-inner-border {
+    position: absolute;
+    inset: 1px;
+    border-radius: calc(var(--radius-lg) - 1px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+    z-index: 2;
   }
 
+  .mascara-foto-perfil:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    transform: scale(1.02) rotate(1deg);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 15px rgba(99, 102, 241, 0.15);
+  }
+
+  .mascara-foto-perfil img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    z-index: 1;
+    transition: var(--transition-smooth);
+    filter: grayscale(10%) contrast(105%);
+  }
+
+  .mascara-foto-perfil:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%) contrast(105%);
+  }
+
+  /* Badges Flotantes */
+  .floating-badge {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--color-oscuro-transparente);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 0.7rem 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    z-index: 3;
+    transition: var(--transition-smooth);
+  }
+
+  .floating-badge:hover {
+    transform: scale(1.05) translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  }
+
+  .badge-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.2rem;
+    width: 2.2rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    color: white;
+  }
+
+  .badge-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .badge-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-texto-primario);
+  }
+
+  .badge-subtitle {
+    font-size: 0.7rem;
+    color: var(--color-texto-primario);
+    opacity: 0.6;
+    font-family: var(--font-mono);
+  }
+
+  .badge-backend {
+    top: 2rem;
+    left: -2rem;
+    animation: float-slower 6s ease-in-out infinite alternate;
+  }
+
+  .badge-backend .badge-icon {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+  }
+
+  .badge-ml {
+    bottom: 2rem;
+    right: -2rem;
+    animation: float-slower 6s ease-in-out infinite alternate-reverse;
+  }
+
+  .badge-ml .badge-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+
+  /* Animaciones */
+  @keyframes pulse-dot {
+    0% {
+      transform: scale(0.75);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.1);
+      opacity: 0.55;
+    }
+  }
+
+  @keyframes float-slow {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(-12px);
+    }
+  }
+
+  @keyframes float-slower {
+    0% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    100% {
+      transform: translateY(-8px) rotate(1deg);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+
+
+  /* Media Queries y Responsividad */
   @media screen and (max-width: 1024px) {
     .sobre-mi h1 {
       font-size: 2.6rem;
     }
-    .sobre-mi h1 span.small-text {
-      font-size: 1.25rem;
+    .eyebrow-text {
+      font-size: 0.8rem;
+    }
+    .descripcion {
+      font-size: 1.05rem;
+    }
+    .mascara-foto-perfil {
+      height: 15rem;
+      width: 15rem;
+    }
+    .fondo-foto-perfil {
+      height: 16rem;
+      width: 16rem;
+    }
+    .badge-backend {
+      left: -1rem;
+      top: 1rem;
+    }
+    .badge-ml {
+      right: -1rem;
+      bottom: 1rem;
     }
   }
 
-  @media (max-width: 860px) {
+  @media screen and (max-width: 860px) {
     .imagen {
-      min-height: 14rem;
-      margin-top: 2rem;
+      min-height: 18rem;
+      margin-top: 1.5rem;
     }
-    .fondo-foto-perfil,
     .mascara-foto-perfil {
-      height: 12rem;
-      width: 12rem;
+      height: 13rem;
+      width: 13rem;
+    }
+    .fondo-foto-perfil {
+      height: 14rem;
+      width: 14rem;
+    }
+    .badge-backend {
+      left: -1.5rem;
+    }
+    .badge-ml {
+      right: -1.5rem;
     }
   }
 
@@ -237,28 +515,61 @@ import RedesSociales from './RedesSociales.astro';
     .sobre-mi {
       text-align: center;
       align-items: center;
+      margin-top: 1rem;
     }
-    /* .redes lo renderiza <RedesSociales />: override cross-componente */
+
     .sobre-mi :global(.redes) {
       justify-content: center;
     }
-    .accesos-rapidos {
-      width: 100%;
+
+    .descripcion {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .tech-tags {
       justify-content: center;
     }
-    .boton-ir-abajo {
-      display: none;
+
+    .accesos-rapidos {
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
     }
+
+    .btn-primary, .btn-secondary {
+      width: 100%;
+    }
+
+
+
     .imagen {
-      min-height: 14rem;
-      margin-top: 1rem;
+      margin-top: 2rem;
+      min-height: 16rem;
+    }
+
+    .mascara-foto-perfil {
+      height: 12rem;
+      width: 12rem;
+    }
+
+    .fondo-foto-perfil {
+      height: 13rem;
+      width: 13rem;
+    }
+
+    .badge-backend {
+      left: -0.5rem;
+      top: 0.5rem;
+      transform: scale(0.9);
+    }
+    
+    .badge-ml {
+      right: -0.5rem;
+      bottom: 0.5rem;
+      transform: scale(0.9);
     }
   }
 </style>
 
-<script>
-  // Scroll suave al pulsar el botón "ir abajo"
-  document.querySelector('.boton-ir-abajo')?.addEventListener('click', () => {
-    window.scroll({ top: 960, left: 0, behavior: 'smooth' });
-  });
-</script>
+

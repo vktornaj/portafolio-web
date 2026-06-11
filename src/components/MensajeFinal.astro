@@ -2,12 +2,17 @@
 ---
 
 <div class="mensaje-final">
-  <h3>Más sobre mí</h3>
+  <div class="mensaje-glow"></div>
+  <span class="eyebrow-text">FILOSOFÍA</span>
+  <h3>Mi Enfoque</h3>
   <p>
-    Soy ingeniero de software, tengo experiencia en el desarrollo de backend, bases de datos y
-    algoritmos de machine learning. Puedes contactarme si necesitas que desarrolle una herramienta
-    que te ayude llevar acado tu idea.
+    Combino bases sólidas en ingeniería de software con algoritmos avanzados de Inteligencia Artificial para crear soluciones de alto impacto. Mi meta es ayudar a materializar ideas complejas en herramientas estables, eficientes y preparadas para el futuro.
   </p>
+  <div class="tech-icon-decoration">
+    <i class="fas fa-code"></i>
+    <i class="fas fa-terminal"></i>
+    <i class="fas fa-cpu"></i>
+  </div>
 </div>
 
 <style>
@@ -17,17 +22,104 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 3.2rem 2.8rem;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .mensaje-final:hover {
+    border-color: rgba(99, 102, 241, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 15px rgba(99, 102, 241, 0.08);
+  }
+
+  /* Efecto de luz difusa trasera */
+  .mensaje-glow {
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    width: 25rem;
+    height: 25rem;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+    transition: var(--transition-smooth);
+  }
+
+  .mensaje-final:hover .mensaje-glow {
+    transform: scale(1.1);
+  }
+
+  .eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-azul-claro);
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 0.5rem;
+    z-index: 1;
   }
 
   .mensaje-final > h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin: 0 0 1.2rem 0;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--color-texto-primario) 50%, var(--color-contraste-fuerte));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
   }
 
   .mensaje-final > p {
-    line-height: 1.7;
+    line-height: 1.75;
     opacity: 0.8;
     font-size: 1.05rem;
+    margin: 0 0 2rem 0;
+    z-index: 1;
+  }
+
+  .tech-icon-decoration {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.4rem;
+    color: var(--color-azul-claro);
+    opacity: 0.35;
+    z-index: 1;
+    transition: var(--transition-smooth);
+  }
+
+  .mensaje-final:hover .tech-icon-decoration {
+    opacity: 0.7;
+    color: var(--color-contraste-fuerte);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mensaje-final {
+      padding: 2.2rem 1.8rem;
+      align-items: center;
+      text-align: center;
+    }
+    .mensaje-final > p {
+      text-align: center;
+    }
   }
 </style>

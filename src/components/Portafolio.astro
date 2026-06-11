@@ -60,19 +60,23 @@ const proyectos = [
 
 <div class="seccion-portafolio" id="portafolio">
   <div class="portafolio-header">
-    <h2 class="titulo-seccion titulo-destacado">Portafolio</h2>
+    <span class="eyebrow-text">MIS TRABAJOS RECIENTES</span>
+    <h2 class="titulo-destacado">Portafolio</h2>
     <p class="portafolio-intro">
-      Una selección de proyectos donde aplico backend, machine learning y
-      sistemas escalables. Aquí es donde mejor se ve lo que hago.
+      Una cuidada selección de proyectos donde aplico desarrollo backend, machine learning y
+      sistemas concurrentes escalables.
     </p>
   </div>
 
   <div class="carrusel">
-    <button class="carrusel-btn carrusel-btn-atras"> &lt; </button>
+    <button class="carrusel-btn carrusel-btn-atras" aria-label="Anterior">
+      <i class="fas fa-chevron-left"></i>
+    </button>
     <div class="carrusel-contenido" id="carruselId">
       {
         proyectos.map((p) => (
           <div class={`elemento-carrusel ${p.clase}`}>
+            <div class="caja-brillo"></div>
             <div class="caracteristicas-proyecto">
               <div class="info-proyecto">
                 <span class="categoria-tag">{p.tag}</span>
@@ -91,18 +95,19 @@ const proyectos = [
         ))
       }
     </div>
-    <button class="carrusel-btn carrusel-btn-adelante"> &gt; </button>
+    <button class="carrusel-btn carrusel-btn-adelante" aria-label="Siguiente">
+      <i class="fas fa-chevron-right"></i>
+    </button>
   </div>
+
   <div class="mas-proyectos">
-    <span>
-      <span>Ver más proyectos en:</span>
-      <br />
-      <br />
-      <a href="https://github.com/Vktornaj" target="blank">
+    <div class="mas-proyectos-card">
+      <span>¿Quieres explorar más proyectos?</span>
+      <a href="https://github.com/Vktornaj" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i>
-        <span>GitHub</span>
+        <span>Ver más en GitHub</span>
       </a>
-    </span>
+    </div>
   </div>
 </div>
 
@@ -110,58 +115,52 @@ const proyectos = [
   .seccion-portafolio {
     grid-area: portafolio;
     width: 100%;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .portafolio-header {
     text-align: center;
-    max-width: 46rem;
-    margin: 0 auto;
+    max-width: 48rem;
+    margin: 0 auto 3rem auto;
   }
 
-  .titulo-seccion {
-    font-size: 2.2rem;
+  .eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
     font-weight: 700;
-    margin-bottom: 2rem;
-    position: relative;
-    display: inline-block;
-    letter-spacing: -0.025em;
-  }
-
-  .titulo-seccion::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 50px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-azul-claro), var(--color-contraste-fuerte));
-    border-radius: 2px;
+    color: var(--color-azul-claro);
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 0.5rem;
   }
 
   .titulo-destacado {
     font-size: 3rem;
-    letter-spacing: -0.035em;
-  }
-
-  .titulo-destacado::after {
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 5px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--color-texto-primario) 30%, var(--color-azul-claro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    display: inline-block;
   }
 
   .portafolio-intro {
-    margin-top: 2rem;
-    font-size: 1.15rem;
-    line-height: 1.7;
+    font-size: 1.1rem;
+    line-height: 1.75;
     opacity: 0.8;
+    color: var(--color-texto-primario);
+    max-width: 50ch;
+    margin: 0 auto;
   }
 
+  /* Carrusel */
   .carrusel {
-    height: 380px;
     position: relative;
     display: flex;
     align-items: center;
+    width: 100%;
     margin-top: 2rem;
   }
 
@@ -169,15 +168,16 @@ const proyectos = [
     border: 1px solid var(--glass-border);
     outline: none;
     border-radius: 50%;
-    height: 44px;
-    width: 44px;
-    background: var(--color-azul-claro2);
+    height: 48px;
+    width: 48px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: var(--color-texto-primario);
     cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1rem;
     transition: var(--transition-smooth);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--glass-shadow);
     z-index: 10;
     display: flex;
     justify-content: center;
@@ -189,34 +189,39 @@ const proyectos = [
     color: white;
     border-color: var(--color-azul-claro);
     transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
   }
 
   .carrusel-btn-atras {
     position: absolute;
-    top: calc(50% - 22px);
-    left: -22px;
+    left: -24px;
   }
 
   .carrusel-btn-adelante {
     position: absolute;
-    top: calc(50% - 22px);
-    right: -22px;
+    right: -24px;
   }
 
   .carrusel-contenido {
-    height: 320px;
+    height: 340px;
     display: flex;
-    overflow-x: hidden;
+    overflow-x: auto;
+    scroll-behavior: smooth;
     width: 100%;
-    padding: 10px 0;
+    padding: 15px 0;
     box-sizing: border-box;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .carrusel-contenido::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
   }
 
   .elemento-carrusel {
-    height: 300px;
-    min-width: 230px;
-    margin-right: 40px;
+    height: 310px;
+    min-width: 290px;
+    width: 290px;
+    margin-right: 30px;
     border-radius: var(--radius-md);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
@@ -228,22 +233,66 @@ const proyectos = [
     justify-content: flex-end;
   }
 
-  .elemento-carrusel:hover {
-    transform: translateY(-8px);
-    border-color: var(--color-azul-claro);
-    box-shadow: 0 16px 36px rgba(99, 102, 241, 0.25);
+  /* Caja de brillo interactiva */
+  .caja-brillo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 50%, transparent 100%);
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
+    transition: var(--transition-smooth);
   }
 
-  /* Gradientes por proyecto */
-  .proyecto-1 { background: linear-gradient(135deg, #1e1b4b, #311042); }
-  .proyecto-2 { background: linear-gradient(135deg, #0b2545, #134074); }
-  .proyecto-3 { background: linear-gradient(135deg, #1c0a00, #3a1a00); }
-  .proyecto-4 { background: linear-gradient(135deg, #062f4f, #001f3f); }
-  .proyecto-5 { background: linear-gradient(135deg, #031b15, #0a3a2f); }
+  .elemento-carrusel:hover {
+    transform: translateY(-8px) scale(1.01);
+    border-color: rgba(99, 102, 241, 0.4);
+  }
+
+  .elemento-carrusel:hover .caja-brillo {
+    opacity: 0.9;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.02) 60%, transparent 100%);
+  }
+
+  /* Gradientes de color premium */
+  .proyecto-1 { 
+    background: var(--card-bg-1); 
+  }
+  .proyecto-1:hover {
+    box-shadow: 0 15px 35px rgba(162, 28, 175, 0.2), var(--glass-shadow);
+  }
+
+  .proyecto-2 { 
+    background: var(--card-bg-2); 
+  }
+  .proyecto-2:hover {
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.25), var(--glass-shadow);
+  }
+
+  .proyecto-3 { 
+    background: var(--card-bg-3); 
+  }
+  .proyecto-3:hover {
+    box-shadow: 0 15px 35px rgba(249, 115, 22, 0.2), var(--glass-shadow);
+  }
+
+  .proyecto-4 { 
+    background: var(--card-bg-4); 
+  }
+  .proyecto-4:hover {
+    box-shadow: 0 15px 35px rgba(6, 182, 212, 0.2), var(--glass-shadow);
+  }
+
+  .proyecto-5 { 
+    background: var(--card-bg-5); 
+  }
+  .proyecto-5:hover {
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.2), var(--glass-shadow);
+  }
 
   .caracteristicas-proyecto {
     padding: 1.5rem;
-    background: linear-gradient(to top, rgba(9, 13, 22, 0.95), rgba(9, 13, 22, 0.5) 75%, transparent);
+    background: var(--card-overlay);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -251,6 +300,7 @@ const proyectos = [
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    z-index: 2;
   }
 
   .info-proyecto {
@@ -258,48 +308,31 @@ const proyectos = [
   }
 
   .categoria-tag {
-    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;
     color: var(--color-contraste-fuerte);
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
   }
 
   .caracteristicas-proyecto h4 {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 800;
     margin: 0 0 0.5rem 0;
-    color: white;
+    color: var(--card-text-title);
+    letter-spacing: -0.02em;
   }
 
   .caracteristicas-proyecto p {
     font-size: 0.85rem;
-    color: #94a3b8;
-    margin: 0 0 1rem 0;
-    line-height: 1.45;
+    color: var(--card-text-desc);
+    margin: 0 0 1.2rem 0;
+    line-height: 1.5;
+    opacity: 0.95;
   }
-
-  /* Iconos de tecnologías en las tarjetas */
-  .tecnologias-iconos {
-    display: flex;
-    gap: 0.8rem;
-    font-size: 1.4rem;
-  }
-
-  .tecnologias-iconos .fa-html5 { color: #e34f26; }
-  .tecnologias-iconos .fa-css3-alt { color: #1572b6; }
-  .tecnologias-iconos .fa-js-square { color: #f7df1e; }
-  .tecnologias-iconos .fa-python { color: #3776ab; }
-  .tecnologias-iconos .fa-brain { color: var(--color-contraste-fuerte); }
-  .tecnologias-iconos .fa-rust { color: #f74c00; }
-  .tecnologias-iconos .fa-java { color: #5382a1; }
-  .tecnologias-iconos .fa-database { color: #336791; }
-  .tecnologias-iconos .fa-server { color: #a855f7; }
-  .tecnologias-iconos .fa-shield-alt { color: #10b981; }
-  .tecnologias-iconos .fa-project-diagram { color: #06b6d4; }
-  .tecnologias-iconos .fa-chart-line { color: #f43f5e; }
 
   .tecnologias-usadas {
     width: 100%;
@@ -307,48 +340,104 @@ const proyectos = [
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding-top: 0.8rem;
-    height: auto;
+    padding-top: 0.9rem;
   }
 
-  .mas-proyectos {
+  /* Iconos de tecnologías en las tarjetas */
+  .tecnologias-iconos {
     display: flex;
-    justify-content: center;
-    text-align: center;
-    margin-top: 2.5rem;
+    gap: 0.8rem;
+    font-size: 1.35rem;
   }
 
-  .mas-proyectos > span {
-    font-size: 0.95rem;
-    color: var(--color-texto-primario);
+  .tecnologias-iconos i {
+    transition: var(--transition-smooth);
     opacity: 0.85;
   }
 
-  .mas-proyectos a {
+  .tecnologias-iconos i:hover {
+    transform: scale(1.15) translateY(-2px);
+    opacity: 1;
+  }
+
+  .tecnologias-iconos .fa-html5 { color: #e34f26; }
+  .tecnologias-iconos .fa-css3-alt { color: #1572b6; }
+  .tecnologias-iconos .fa-js-square { color: #f7df1e; }
+  .tecnologias-iconos .fa-python { color: #3776ab; }
+  .tecnologias-iconos .fa-brain { color: var(--color-contraste-fuerte); }
+  .tecnologias-iconos .fa-rust { color: #ff5722; }
+  .tecnologias-iconos .fa-java { color: #e76f51; }
+  .tecnologias-iconos .fa-database { color: #336791; }
+  .tecnologias-iconos .fa-server { color: #a855f7; }
+  .tecnologias-iconos .fa-shield-alt { color: #10b981; }
+  .tecnologias-iconos .fa-project-diagram { color: #06b6d4; }
+  .tecnologias-iconos .fa-chart-line { color: #f43f5e; }
+
+  /* Ver más proyectos */
+  .mas-proyectos {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 3.5rem;
+  }
+
+  .mas-proyectos-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .mas-proyectos-card span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-texto-primario);
+    opacity: 0.9;
+  }
+
+  .mas-proyectos-card a {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.8rem;
+    gap: 0.6rem;
     text-decoration: none;
     color: white;
-    background: var(--color-azul-claro2);
+    background: linear-gradient(135deg, var(--color-azul-claro2), rgba(99, 102, 241, 0.2));
     border: 1px solid var(--glass-border);
-    padding: 0.7rem 1.5rem;
+    padding: 0.75rem 1.6rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
+    font-size: 0.9rem;
     transition: var(--transition-smooth);
   }
 
-  .mas-proyectos a:hover {
+  .mas-proyectos-card a:hover {
     background: var(--color-azul-claro);
     border-color: var(--color-azul-claro);
     color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
   }
 
-  .mas-proyectos i {
-    font-size: 1.25rem;
+  .mas-proyectos-card a i {
+    font-size: 1.2rem;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 768px) {
@@ -359,11 +448,20 @@ const proyectos = [
       font-size: 1rem;
     }
     .carrusel-contenido {
-      overflow-x: scroll;
-      padding-left: 1rem;
+      padding-left: 0.5rem;
     }
     .carrusel-btn {
       display: none;
+    }
+    .mas-proyectos-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+      gap: 1.2rem;
+    }
+    .mas-proyectos-card a {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>
@@ -374,24 +472,15 @@ const proyectos = [
   const carrusel = document.getElementById('carruselId') as HTMLElement;
   const btnAtras = document.querySelector('.carrusel-btn-atras');
   const btnAdelante = document.querySelector('.carrusel-btn-adelante');
-  let carruselPos = 0;
-  const tElemento = 270;
-  const nElementos = 5;
-  const marginR = 40;
-
-  function scroll_x(npos: number) {
-    carrusel.scroll({ top: 0, left: npos, behavior: 'smooth' });
-  }
+  
+  // Ancho base del elemento (290px) + margen (30px)
+  const stepSize = 320;
 
   btnAtras?.addEventListener('click', () => {
-    if (carruselPos <= 0) return;
-    carruselPos -= tElemento;
-    scroll_x(carruselPos);
+    carrusel.scrollBy({ top: 0, left: -stepSize, behavior: 'smooth' });
   });
 
   btnAdelante?.addEventListener('click', () => {
-    if (carruselPos >= tElemento * nElementos - marginR - carruselContainer.clientWidth) return;
-    carruselPos += tElemento;
-    scroll_x(carruselPos);
+    carrusel.scrollBy({ top: 0, left: stepSize, behavior: 'smooth' });
   });
 </script>
