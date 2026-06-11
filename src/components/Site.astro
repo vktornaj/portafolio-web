@@ -1,0 +1,28 @@
+---
+import Navbar from './Navbar.astro';
+import SobreMi from './SobreMi.astro';
+import Portafolio from './Portafolio.astro';
+import YouTube from './YouTube.astro';
+import Contacto from './Contacto.astro';
+import MensajeFinal from './MensajeFinal.astro';
+import Footer from './Footer.astro';
+import NavMovil from './NavMovil.astro';
+import { defaultLang, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+---
+
+<div class="wrapper">
+  <Navbar lang={lang} />
+  <SobreMi lang={lang} />
+  <Portafolio lang={lang} />
+  <YouTube lang={lang} />
+  <Contacto lang={lang} />
+  <MensajeFinal lang={lang} />
+  <Footer lang={lang} />
+  <NavMovil lang={lang} />
+</div>

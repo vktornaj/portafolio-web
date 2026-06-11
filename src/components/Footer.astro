@@ -1,16 +1,25 @@
 ---
 import RedesSociales from './RedesSociales.astro';
+import { useTranslations, type Lang } from '../i18n/utils';
+import { defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <footer class="footer">
   <div class="footer-content">
     <div class="col-copyright">
       <span class="footer-brand">Eduardo García</span>
-      <span class="footer-copy">© 2026 • Desarrollado con pasión y código limpio.</span>
+      <span class="footer-copy">{t.footer.copy}</span>
     </div>
-    
+
     <div class="col-social">
-      <span class="social-label">Redes Sociales</span>
+      <span class="social-label">{t.footer.redes}</span>
       <RedesSociales />
     </div>
   </div>

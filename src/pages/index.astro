@@ -1,24 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import SobreMi from '../components/SobreMi.astro';
-import Portafolio from '../components/Portafolio.astro';
-import YouTube from '../components/YouTube.astro';
-import Contacto from '../components/Contacto.astro';
-import MensajeFinal from '../components/MensajeFinal.astro';
-import Footer from '../components/Footer.astro';
-import NavMovil from '../components/NavMovil.astro';
+import Site from '../components/Site.astro';
 ---
 
-<Layout title="Eduardo García">
-  <div class="wrapper">
-    <Navbar />
-    <SobreMi />
-    <Portafolio />
-    <YouTube />
-    <Contacto />
-    <MensajeFinal />
-    <Footer />
-    <NavMovil />
-  </div>
+<Layout title="Eduardo García" lang="es">
+  <Site lang="es" />
 </Layout>

@@ -1,9 +1,19 @@
 ---
+import { useTranslations, type Lang } from '../i18n/utils';
+import { defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const links = [
-  { href: '#nav-bar-id', icon: 'fas fa-home', label: 'Sobre mí', sectionId: 'sobre-mi' },
-  { href: '#portafolio', icon: 'fas fa-folder', label: 'Portafolio', sectionId: 'portafolio' },
-  { href: '#youtube', icon: 'fab fa-youtube', label: 'YouTube', sectionId: 'youtube' },
-  { href: '#contacto-id', icon: 'fas fa-id-card', label: 'Contacto', sectionId: 'contacto-id' },
+  { href: '#nav-bar-id', icon: 'fas fa-home', label: t.nav.sobreMi, sectionId: 'sobre-mi' },
+  { href: '#portafolio', icon: 'fas fa-folder', label: t.nav.portafolio, sectionId: 'portafolio' },
+  { href: '#youtube', icon: 'fab fa-youtube', label: t.nav.youtube, sectionId: 'youtube' },
+  { href: '#contacto-id', icon: 'fas fa-id-card', label: t.nav.contacto, sectionId: 'contacto-id' },
 ];
 ---
 

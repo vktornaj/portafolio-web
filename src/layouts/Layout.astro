@@ -1,16 +1,36 @@
 ---
 import '../styles/global.css';
+import { defaultLang, type Lang } from '../i18n/ui';
 
 interface Props {
   title?: string;
+  lang?: Lang;
 }
 
-const { title = 'Eduardo García' } = Astro.props;
+const { title = 'Eduardo García', lang = defaultLang } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
   <head>
+    <!--
+      Detección de idioma: respeta la elección manual guardada en
+      localStorage; si no hay ninguna, usa el idioma del navegador.
+      Se ejecuta lo antes posible para evitar parpadeo de contenido.
+    -->
+    <script is:inline define:vars={{ pageLang: lang }}>
+      (function () {
+        try {
+          var stored = localStorage.getItem('lang');
+          var desired = stored || ((navigator.language || 'es').slice(0, 2).toLowerCase() === 'en' ? 'en' : 'es');
+          if (desired === 'en' && pageLang !== 'en') {
+            location.replace('/en/');
+          } else if (desired === 'es' && pageLang !== 'es') {
+            location.replace('/');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XTTEY0T872"></script>
     <script is:inline>

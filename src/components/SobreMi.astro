@@ -1,38 +1,44 @@
 ---
 import RedesSociales from './RedesSociales.astro';
+import { useTranslations, type Lang } from '../i18n/utils';
+import { defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <div class="sobre-mi" id="sobre-mi">
   <div class="badge-disponibilidad">
     <span class="dot-disponibilidad"></span>
-    <span class="badge-text">Disponible para nuevos proyectos</span>
+    <span class="badge-text">{t.hero.disponible}</span>
   </div>
 
   <RedesSociales />
 
   <h1>
-    <span class="eyebrow-text">HOLA, SOY EDUARDO GARCÍA</span>
+    <span class="eyebrow-text">{t.hero.saludo}</span>
     <span class="main-title">
-      Desarrollador <span class="gradient-text">Backend</span> & <span class="gradient-text ml-color">Machine Learning</span>
+      {t.hero.tituloPre}<span class="gradient-text sol-color">{t.hero.tituloSoluciones}</span>{t.hero.tituloMid}<span class="gradient-text">{t.hero.tituloSoftware}</span>{t.hero.tituloConj}<span class="gradient-text ml-color">{t.hero.tituloIA}</span>
     </span>
   </h1>
 
-  <p class="descripcion">
-    Diseño y construyo arquitecturas de servidor robustas y modelos de inteligencia artificial escalables. 
-    Me apasiona resolver problemas complejos y transformar datos en soluciones eficientes y de alta calidad.
-  </p>
+  <p class="descripcion">{t.hero.descripcion}</p>
 
   <div class="tech-tags">
     <span class="tech-tag"><i class="fab fa-python"></i> Python</span>
-    <span class="tech-tag"><i class="fab fa-node-js"></i> Node.js</span>
-    <span class="tech-tag"><i class="fas fa-brain"></i> PyTorch</span>
-    <span class="tech-tag"><i class="fas fa-database"></i> SQL</span>
+    <span class="tech-tag"><i class="fas fa-robot"></i> LLMs</span>
+    <span class="tech-tag"><i class="fab fa-js-square"></i> TypeScript</span>
+    <span class="tech-tag"><i class="fab fa-rust"></i> Rust</span>
     <span class="tech-tag"><i class="fab fa-docker"></i> Docker</span>
   </div>
 
   <div class="accesos-rapidos">
     <a href="#portafolio" class="btn-primary">
-      <span>Ver Portafolio</span>
+      <span>{t.hero.verPortafolio}</span>
       <i class="fas fa-arrow-right"></i>
     </a>
     <a
@@ -42,7 +48,7 @@ import RedesSociales from './RedesSociales.astro';
       class="btn-secondary"
     >
       <i class="fas fa-download"></i>
-      <span>Descargar CV</span>
+      <span>{t.hero.descargarCV}</span>
     </a>
   </div>
 
@@ -55,24 +61,24 @@ import RedesSociales from './RedesSociales.astro';
   <!-- Profile Image Wrapper with Glass Frame -->
   <div class="mascara-foto-perfil">
     <div class="glass-inner-border"></div>
-    <img src="/assets/perfil.png" alt="Eduardo García - Foto de perfil" />
+    <img src="/assets/perfil.png" alt={t.hero.fotoAlt} />
   </div>
 
-  <!-- Floating Badge 1: Backend -->
+  <!-- Floating Badge 1: Software -->
   <div class="floating-badge badge-backend">
-    <div class="badge-icon"><i class="fas fa-server"></i></div>
+    <div class="badge-icon"><i class="fas fa-code"></i></div>
     <div class="badge-content">
-      <span class="badge-title">Backend Dev</span>
-      <span class="badge-subtitle">APIs & DBs</span>
+      <span class="badge-title">{t.hero.badgeSoftwareTitle}</span>
+      <span class="badge-subtitle">{t.hero.badgeSoftwareSub}</span>
     </div>
   </div>
 
-  <!-- Floating Badge 2: Machine Learning -->
+  <!-- Floating Badge 2: AI -->
   <div class="floating-badge badge-ml">
-    <div class="badge-icon"><i class="fas fa-brain"></i></div>
+    <div class="badge-icon"><i class="fas fa-robot"></i></div>
     <div class="badge-content">
-      <span class="badge-title">Machine Learning</span>
-      <span class="badge-subtitle">AI & Models</span>
+      <span class="badge-title">{t.hero.badgeIaTitle}</span>
+      <span class="badge-subtitle">{t.hero.badgeIaSub}</span>
     </div>
   </div>
 </div>
@@ -161,6 +167,12 @@ import RedesSociales from './RedesSociales.astro';
 
   .gradient-text.ml-color {
     background: linear-gradient(135deg, #10b981 10%, #059669 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text.sol-color {
+    background: linear-gradient(135deg, #22d3ee 10%, #06b6d4 90%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }

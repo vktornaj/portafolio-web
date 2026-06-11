@@ -1,5 +1,14 @@
 ---
 import { proyectos } from '../data/proyectos';
+import { useTranslations, tr, type Lang } from '../i18n/utils';
+import { defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
 
 // Con un solo proyecto usamos un layout "destacado" (spotlight) en vez del
 // carrusel, que se vería vacío. Con 2+ proyectos volvemos al carrusel.
@@ -8,12 +17,9 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
 
 <div class="seccion-portafolio" id="portafolio">
   <div class="portafolio-header">
-    <span class="eyebrow-text">MIS TRABAJOS RECIENTES</span>
-    <h2 class="titulo-destacado">Portafolio</h2>
-    <p class="portafolio-intro">
-      Una cuidada selección de proyectos donde aplico desarrollo backend, machine learning y
-      sistemas concurrentes escalables.
-    </p>
+    <span class="eyebrow-text">{t.portafolio.eyebrow}</span>
+    <h2 class="titulo-destacado">{t.portafolio.titulo}</h2>
+    <p class="portafolio-intro">{t.portafolio.intro}</p>
   </div>
 
   {unico ? (
@@ -31,15 +37,15 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
         )}
       </div>
       <div class="destacado-info">
-        <span class="categoria-tag">{unico.tag}</span>
+        <span class="categoria-tag">{tr(unico.tag, lang)}</span>
         <h3 class="destacado-titulo">{unico.titulo}</h3>
-        <p class="destacado-desc">{unico.descripcion}</p>
+        <p class="destacado-desc">{tr(unico.descripcion, lang)}</p>
         {unico.detalles?.destacados && (
           <ul class="destacado-lista">
             {unico.detalles.destacados.slice(0, 3).map((d) => (
               <li>
                 <i class="fas fa-check" />
-                <span>{d}</span>
+                <span>{tr(d, lang)}</span>
               </li>
             ))}
           </ul>
@@ -53,19 +59,19 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
           {unico.codigo && (
             <a class="enlace-proyecto" href={unico.codigo} target="_blank" rel="noopener noreferrer">
               <i class="fab fa-github" />
-              <span>Código</span>
+              <span>{t.portafolio.codigo}</span>
             </a>
           )}
           {unico.demo && (
             <a class="enlace-proyecto enlace-demo" href={unico.demo} target="_blank" rel="noopener noreferrer">
               <i class="fas fa-external-link-alt" />
-              <span>Demo</span>
+              <span>{t.portafolio.demo}</span>
             </a>
           )}
           {unico.detalles && (
-            <button class="enlace-proyecto detalle-btn" data-modal-target="modal-0" title="Más información">
+            <button class="enlace-proyecto detalle-btn" data-modal-target="modal-0" title={t.portafolio.masInfo}>
               <i class="fas fa-info-circle" />
-              <span>Detalles</span>
+              <span>{t.portafolio.detalles}</span>
             </button>
           )}
         </div>
@@ -97,9 +103,9 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
             )}
             <div class="caracteristicas-proyecto">
               <div class="info-proyecto">
-                <span class="categoria-tag">{p.tag}</span>
+                <span class="categoria-tag">{tr(p.tag, lang)}</span>
                 <h4>{p.titulo}</h4>
-                <p>{p.descripcion}</p>
+                <p>{tr(p.descripcion, lang)}</p>
               </div>
               <div class="tecnologias-usadas">
                 <div class="tecnologias-iconos">
@@ -115,10 +121,10 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
                     href={p.codigo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Ver repositorio"
+                    title={t.portafolio.verRepo}
                   >
                     <i class="fab fa-github" />
-                    <span>Código</span>
+                    <span>{t.portafolio.codigo}</span>
                   </a>
                 )}
                 {p.demo && (
@@ -127,16 +133,16 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
                     href={p.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Ver demo en vivo"
+                    title={t.portafolio.verDemo}
                   >
                     <i class="fas fa-external-link-alt" />
-                    <span>Demo</span>
+                    <span>{t.portafolio.demo}</span>
                   </a>
                 )}
                 {p.detalles && (
-                  <button class="enlace-proyecto detalle-btn" data-modal-target={`modal-${i}`} title="Más información">
+                  <button class="enlace-proyecto detalle-btn" data-modal-target={`modal-${i}`} title={t.portafolio.masInfo}>
                     <i class="fas fa-info-circle" />
-                    <span>Detalles</span>
+                    <span>{t.portafolio.detalles}</span>
                   </button>
                 )}
               </div>
@@ -153,10 +159,10 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
 
   <div class="mas-proyectos">
     <div class="mas-proyectos-card">
-      <span>¿Quieres explorar más proyectos?</span>
+      <span>{t.portafolio.masProyectos}</span>
       <a href="https://github.com/Vktornaj" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-github"></i>
-        <span>Ver más en GitHub</span>
+        <span>{t.portafolio.verGithub}</span>
       </a>
     </div>
   </div>
@@ -168,28 +174,28 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
       <div class="proyecto-modal" id={`modal-${i}`} role="dialog" aria-modal="true" aria-hidden="true">
         <div class="modal-overlay" data-modal-cerrar></div>
         <div class={`modal-caja ${p.galeria ? 'con-galeria' : ''}`}>
-          <button class="modal-cerrar" aria-label="Cerrar" data-modal-cerrar>
+          <button class="modal-cerrar" aria-label={t.portafolio.cerrar} data-modal-cerrar>
             <i class="fas fa-times"></i>
           </button>
           <div class="modal-grid">
             <div class="modal-info">
-              <span class="categoria-tag modal-tag">{p.tag}</span>
+              <span class="categoria-tag modal-tag">{tr(p.tag, lang)}</span>
               <h3 class="modal-titulo">{p.titulo}</h3>
-              <p class="modal-resumen">{p.detalles.resumen}</p>
+              <p class="modal-resumen">{tr(p.detalles.resumen, lang)}</p>
 
               {p.detalles.arquitectura && (
                 <div class="modal-seccion">
-                  <h4>Arquitectura</h4>
-                  <p>{p.detalles.arquitectura}</p>
+                  <h4>{t.portafolio.arquitectura}</h4>
+                  <p>{tr(p.detalles.arquitectura, lang)}</p>
                 </div>
               )}
 
               {p.detalles.destacados && (
                 <div class="modal-seccion">
-                  <h4>Destacados</h4>
+                  <h4>{t.portafolio.destacados}</h4>
                   <ul class="modal-lista">
                     {p.detalles.destacados.map((d) => (
-                      <li>{d}</li>
+                      <li>{tr(d, lang)}</li>
                     ))}
                   </ul>
                 </div>
@@ -207,13 +213,13 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
                 {p.codigo && (
                   <a class="enlace-proyecto" href={p.codigo} target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-github" />
-                    <span>Código</span>
+                    <span>{t.portafolio.codigo}</span>
                   </a>
                 )}
                 {p.demo && (
                   <a class="enlace-proyecto enlace-demo" href={p.demo} target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-external-link-alt" />
-                    <span>Demo</span>
+                    <span>{t.portafolio.demo}</span>
                   </a>
                 )}
               </div>
@@ -227,7 +233,7 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
                     href={src}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Ver a tamaño completo"
+                    title={t.portafolio.verTamano}
                   >
                     <img src={src} alt={`${p.titulo} captura ${gi + 1}`} loading="lazy" />
                   </a>

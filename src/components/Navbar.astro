@@ -1,9 +1,19 @@
 ---
+import { useTranslations, type Lang } from '../i18n/utils';
+import { defaultLang } from '../i18n/ui';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useTranslations(lang);
+
 const links = [
-  { href: '#nav-bar-id', label: 'Sobre mí' },
-  { href: '#portafolio', label: 'Portafolio' },
-  { href: '#youtube', label: 'YouTube' },
-  { href: '#contacto-id', label: 'Contacto' },
+  { href: '#nav-bar-id', label: t.nav.sobreMi },
+  { href: '#portafolio', label: t.nav.portafolio },
+  { href: '#youtube', label: t.nav.youtube },
+  { href: '#contacto-id', label: t.nav.contacto },
 ];
 ---
 
@@ -15,7 +25,11 @@ const links = [
         <li><a href={link.href}>{link.label}</a></li>
       ))}
     </ul>
-    <label class="switch" aria-label="Cambiar tema">
+    <div class="lang-switch" role="group" aria-label={t.nav.cambiarIdioma}>
+      <button type="button" data-lang="es" class:list={['lang-btn', { active: lang === 'es' }]}>ES</button>
+      <button type="button" data-lang="en" class:list={['lang-btn', { active: lang === 'en' }]}>EN</button>
+    </div>
+    <label class="switch" aria-label={t.nav.cambiarTema}>
       <input type="checkbox" id="switch-mode" />
       <span class="slider round">
         <i class="fas fa-moon" title="Modo oscuro"></i>
@@ -122,6 +136,43 @@ const links = [
     }
   }
 
+  /* Selector de idioma ES / EN */
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    border-radius: 100px;
+    background: var(--color-azul-claro2);
+    border: 1px solid var(--glass-border);
+  }
+
+  .lang-btn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--color-texto-primario);
+    opacity: 0.65;
+    background: transparent;
+    border: none;
+    border-radius: 100px;
+    padding: 0.25rem 0.55rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+  }
+
+  .lang-btn:hover {
+    opacity: 1;
+  }
+
+  .lang-btn.active {
+    opacity: 1;
+    color: #fff;
+    background: var(--color-azul-claro);
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+  }
+
   /* Switch de modo claro/oscuro rediseñado */
   .switch {
     position: relative;
@@ -196,6 +247,18 @@ const links = [
 </style>
 
 <script>
+  // Selector de idioma: guarda la preferencia y navega a la versión del sitio.
+  document.querySelectorAll<HTMLButtonElement>('.lang-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang');
+      if (!lang) return;
+      try {
+        localStorage.setItem('lang', lang);
+      } catch (e) {}
+      window.location.assign(lang === 'en' ? '/en/' : '/');
+    });
+  });
+
   // Modo oscuro / claro
   const switchMode = document.getElementById('switch-mode') as HTMLInputElement;
   const root = document.documentElement;
