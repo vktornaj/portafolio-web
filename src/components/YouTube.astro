@@ -1,0 +1,361 @@
+---
+import { videos, canalYoutube } from '../data/videos';
+---
+
+<div class="seccion-youtube" id="youtube">
+  <div class="youtube-header">
+    <span class="eyebrow-text"><i class="fab fa-youtube"></i> MI CANAL</span>
+    <h2 class="titulo-destacado">YouTube</h2>
+    <p class="youtube-intro">
+      Comparto tutoriales y proyectos sobre desarrollo, inteligencia artificial y los
+      lenguajes que me apasionan. Aquí tienes un vistazo a lo más reciente.
+    </p>
+  </div>
+
+  <div class={`youtube-grid ${videos.length === 1 ? 'una-columna' : ''}`}>
+    {
+      videos.map((v) => (
+        <article class="video-card">
+          <div class="video-thumb" data-video-id={v.id}>
+            <img
+              src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+              alt={`Miniatura: ${v.titulo}`}
+              loading="lazy"
+            />
+            <button class="play-btn" aria-label={`Reproducir ${v.titulo}`}>
+              <i class="fas fa-play" />
+            </button>
+          </div>
+          <div class="video-info">
+            <h3 class="video-titulo">{v.titulo}</h3>
+            {v.descripcion && <p class="video-desc">{v.descripcion}</p>}
+            <a
+              class="video-link"
+              href={`https://www.youtube.com/watch?v=${v.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="fab fa-youtube" />
+              <span>Ver en YouTube</span>
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="youtube-cta">
+    <div class="youtube-cta-card">
+      <span>¿Te gustó el contenido? Suscríbete para no perderte nada.</span>
+      <a href={canalYoutube.url} target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-youtube"></i>
+        <span>Ver canal completo</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .seccion-youtube {
+    grid-area: youtube;
+    width: 100%;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .youtube-header {
+    text-align: center;
+    max-width: 48rem;
+    margin: 0 auto 3rem auto;
+  }
+
+  .eyebrow-text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ff0033;
+    letter-spacing: 0.15em;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .eyebrow-text i {
+    margin-right: 0.35rem;
+  }
+
+  .titulo-destacado {
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--color-texto-primario) 30%, var(--color-azul-claro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .youtube-intro {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    opacity: 0.8;
+    color: var(--color-texto-primario);
+    max-width: 50ch;
+    margin: 0 auto;
+  }
+
+  /* Rejilla de videos */
+  .youtube-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Con un solo video lo centramos sin que ocupe todo el ancho */
+  .youtube-grid.una-columna {
+    grid-template-columns: minmax(0, 520px);
+    justify-content: center;
+  }
+
+  .video-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-smooth);
+  }
+
+  .video-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 0, 51, 0.35);
+    box-shadow: 0 15px 35px rgba(255, 0, 51, 0.18), var(--glass-shadow);
+  }
+
+  /* Miniatura con botón de reproducción (facade) */
+  .video-thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    cursor: pointer;
+    background: #05070d;
+    overflow: hidden;
+  }
+
+  .video-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+  }
+
+  .video-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent 55%);
+    transition: var(--transition-smooth);
+  }
+
+  .video-card:hover .video-thumb img {
+    transform: scale(1.05);
+  }
+
+  .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 0, 51, 0.92);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 4px;
+    z-index: 2;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    transition: var(--transition-smooth);
+  }
+
+  .video-card:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: #ff0033;
+  }
+
+  /* Iframe que reemplaza la miniatura tras hacer clic */
+  .video-thumb iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .video-info {
+    padding: 1.4rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .video-titulo {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-texto-primario);
+  }
+
+  .video-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-texto-primario);
+    opacity: 0.78;
+    margin: 0 0 1.2rem 0;
+    flex: 1;
+  }
+
+  .video-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-texto-primario);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-smooth);
+  }
+
+  .video-link i {
+    color: #ff0033;
+    font-size: 1rem;
+  }
+
+  .video-link:hover {
+    background: rgba(255, 0, 51, 0.12);
+    border-color: rgba(255, 0, 51, 0.35);
+    transform: translateY(-2px);
+  }
+
+  /* Llamada a la acción para suscribirse */
+  .youtube-cta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 3.5rem;
+  }
+
+  .youtube-cta-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: var(--glass-shadow);
+  }
+
+  .youtube-cta-card span {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-texto-primario);
+    opacity: 0.9;
+  }
+
+  .youtube-cta-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #ff0033, #cc0029);
+    border: 1px solid rgba(255, 0, 51, 0.4);
+    padding: 0.75rem 1.6rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: var(--transition-smooth);
+  }
+
+  .youtube-cta-card a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(255, 0, 51, 0.4);
+  }
+
+  .youtube-cta-card a i {
+    font-size: 1.2rem;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .titulo-destacado {
+      font-size: 2.2rem;
+    }
+    .youtube-intro {
+      font-size: 1rem;
+    }
+    .youtube-grid {
+      grid-template-columns: 1fr;
+    }
+    .youtube-cta-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+      gap: 1.2rem;
+    }
+    .youtube-cta-card a {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  // "Facade" de YouTube: al hacer clic en la miniatura, se reemplaza por el
+  // iframe del reproductor. Así la página carga rápido y solo se trae el
+  // reproductor cuando el usuario realmente quiere ver el video.
+  document.querySelectorAll<HTMLElement>('.video-thumb').forEach((thumb) => {
+    thumb.addEventListener('click', () => {
+      const id = thumb.getAttribute('data-video-id');
+      if (!id || thumb.querySelector('iframe')) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = 'Reproductor de YouTube';
+      iframe.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+
+      thumb.innerHTML = '';
+      thumb.appendChild(iframe);
+    });
+  });
+</script>

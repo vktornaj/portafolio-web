@@ -334,6 +334,7 @@ ul li a {
     grid-template-areas: "navbar navbar navbar"
                             "sobremi sobremi imagen"
                             "portafolio portafolio portafolio"
+                            "youtube youtube youtube"
                             "contacto contacto algo"
                             "footer footer footer";
 }
@@ -347,6 +348,7 @@ ul li a {
                             "imagen imagen imagen"
                             "sobremi sobremi sobremi"
                             "portafolio portafolio portafolio"
+                            "youtube youtube youtube"
                             "contacto contacto contacto"
                             "algo algo algo"
                             "footer footer footer";
