@@ -16,6 +16,18 @@ export interface IconoTec {
   title: string;
 }
 
+/** Contenido del modal "Detalles". Todos los campos son opcionales. */
+export interface DetalleProyecto {
+  /** Párrafo descriptivo largo. */
+  resumen: string;
+  /** Descripción de la arquitectura (opcional). */
+  arquitectura?: string;
+  /** Lista de puntos destacados (opcional). */
+  destacados?: string[];
+  /** Chips del stack tecnológico (opcional). */
+  stack?: string[];
+}
+
 export interface Proyecto {
   /** Clase de gradiente de fondo: 'proyecto-1' … 'proyecto-5'. */
   clase: string;
@@ -33,6 +45,8 @@ export interface Proyecto {
   screenshot?: string;
   /** Iconos de tecnologías (Font Awesome). */
   iconos: IconoTec[];
+  /** Si está presente, muestra el botón "Detalles" que abre un modal. */
+  detalles?: DetalleProyecto;
 }
 
 // Mostrar entre 2 y 5 proyectos.
@@ -50,6 +64,25 @@ export const proyectos: Proyecto[] = [
       { icon: 'fas fa-robot', title: 'IA / Chatbot' },
       { icon: 'fas fa-language', title: 'Aprender inglés' },
     ],
+    detalles: {
+      resumen:
+        'ChatWizard es una app móvil (Flutter) para practicar inglés conversando con un tutor ' +
+        'de IA. El backend está escrito en Go y expone una API gRPC junto con entradas REST ' +
+        '(api_entry) y WebSocket (ws_entry) para sostener el chat en tiempo real con el cliente.',
+      arquitectura:
+        'El backend se organiza en microservicios independientes —cada servicio es su propio ' +
+        'módulo y paquete— siguiendo principios de Clean Architecture / Arquitectura Hexagonal. ' +
+        'Se divide en capas Domain (entidades, lógica y errores de negocio), Application (casos ' +
+        'de uso e interfaces) y Adapter (gRPC, REST y WebSocket), con pruebas en cada capa.',
+      destacados: [
+        'Chat en tiempo real mediante WebSocket',
+        'API gRPC + REST para el cliente Flutter',
+        'Microservicios con Clean / Hexagonal Architecture',
+        'Capas Domain · Application · Adapter, con tests en cada una',
+        'Contenedorizado con Docker (devcontainer + Docker Compose para QA)',
+      ],
+      stack: ['Flutter', 'Go', 'gRPC', 'WebSocket', 'REST', 'Docker', 'Clean Architecture'],
+    },
   },
   {
     clase: 'proyecto-2',
