@@ -49,26 +49,26 @@ const root = document.documentElement;
 
 function activarOscuro() {
   switchMode.checked = 1;
-  root.style.setProperty('--color-azul-fuerte', '#272729');
-  root.style.setProperty('--color-azul-claro', '#1646a0');
-  root.style.setProperty('--color-azul-oscuro', '#101929');
-  root.style.setProperty('--color-azul-claro2', '#0c2d74');
-  root.style.setProperty('--color-azul-vivo', '#0046be');
-  root.style.setProperty('--color-oscuro-transparente', '#25304291');
-  root.style.setProperty('--color-fondo-textos', '#1D1E20');
-  root.style.setProperty('--color-texto-primario', '#FFF');
+  root.style.setProperty('--color-azul-fuerte', '#121826');
+  root.style.setProperty('--color-azul-claro', '#6366f1');
+  root.style.setProperty('--color-azul-oscuro', '#090d16');
+  root.style.setProperty('--color-azul-claro2', '#1e293b');
+  root.style.setProperty('--color-azul-vivo', '#4f46e5');
+  root.style.setProperty('--color-oscuro-transparente', 'rgba(18, 24, 38, 0.7)');
+  root.style.setProperty('--color-fondo-textos', '#151c2c');
+  root.style.setProperty('--color-texto-primario', '#f8fafc');
 }
 
 function deactivarOscuro() {
   switchMode.checked = 0;
-  root.style.setProperty('--color-azul-fuerte', '#162540');
-  root.style.setProperty('--color-azul-claro', '#5794FF');
-  root.style.setProperty('--color-azul-oscuro', '#2B4A80');
-  root.style.setProperty('--color-azul-claro2', '#4170C2');
-  root.style.setProperty('--color-azul-vivo', '#4E86E6');
-  root.style.setProperty('--color-oscuro-transparente', '#91919191');
-  root.style.setProperty('--color-fondo-textos', '#FFF');
-  root.style.setProperty('--color-texto-primario', '#000');
+  root.style.setProperty('--color-azul-fuerte', '#ffffff');
+  root.style.setProperty('--color-azul-claro', '#3b82f6');
+  root.style.setProperty('--color-azul-oscuro', '#f8fafc');
+  root.style.setProperty('--color-azul-claro2', '#e2e8f0');
+  root.style.setProperty('--color-azul-vivo', '#2563eb');
+  root.style.setProperty('--color-oscuro-transparente', 'rgba(255, 255, 255, 0.7)');
+  root.style.setProperty('--color-fondo-textos', '#ffffff');
+  root.style.setProperty('--color-texto-primario', '#0f172a');
 }
 
 if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
