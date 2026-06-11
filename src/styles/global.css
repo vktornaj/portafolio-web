@@ -198,9 +198,9 @@ template {
     --color-texto-primario: #f8fafc;
 
     /* Premium Design System Additions */
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-heading: 'Roboto', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
     --glass-bg: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -250,6 +250,21 @@ body {
     transition: background-color 0.8s ease, color 0.8s ease;
     position: relative;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Resplandor ambiental para dar profundidad al fondo */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(40rem 40rem at 15% -5%, rgba(99, 102, 241, 0.12), transparent 60%),
+        radial-gradient(36rem 36rem at 100% 20%, rgba(16, 185, 129, 0.10), transparent 60%);
 }
 
 h1, h2, h3, h4, h5, h6 {
