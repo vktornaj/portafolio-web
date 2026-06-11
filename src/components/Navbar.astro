@@ -1,0 +1,33 @@
+---
+const links = [
+  { href: '#nav-bar-id', label: 'Sobre mí' },
+  { href: '#tecnologias', label: 'Tecnologías' },
+  { href: '#portafolio', label: 'Portafolio' },
+  { href: '#contacto-id', label: 'Contacto' },
+];
+---
+
+<nav class="nav-bar" id="nav-bar-id">
+  <span>Eduardo García</span>
+  <div class="nav-end">
+    <ul>
+      {links.map((link) => (
+        <li><a href={link.href}>{link.label}</a></li>
+      ))}
+    </ul>
+    <label class="switch">
+      <input type="checkbox" id="switch-mode" />
+      <span class="slider round">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+      </span>
+    </label>
+    <script is:inline>
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.getElementById('switch-mode').checked = 1;
+      } else {
+        document.getElementById('switch-mode').checked = 0;
+      }
+    </script>
+  </div>
+</nav>

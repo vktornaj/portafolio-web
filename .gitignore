@@ -1,5 +1,9 @@
 local.settings*.json
 
+# Astro build output & cache
+dist/
+.astro/
+
 node_modules/
 
 # Logs
