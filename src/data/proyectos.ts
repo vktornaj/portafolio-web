@@ -51,7 +51,8 @@ export interface Proyecto {
   detalles?: DetalleProyecto;
 }
 
-// Mostrar entre 2 y 5 proyectos.
+// Proyectos visibles. Con uno solo se muestra un layout "destacado"; con 2 o más,
+// un carrusel. Abajo hay 4 plantillas comentadas listas para reactivar.
 export const proyectos: Proyecto[] = [
   {
     clase: 'proyecto-1',
@@ -87,6 +88,11 @@ export const proyectos: Proyecto[] = [
       stack: ['Flutter', 'Go', 'gRPC', 'WebSocket', 'REST', 'Docker', 'Clean Architecture'],
     },
   },
+
+  // ---------------------------------------------------------------------------
+  // PLANTILLAS (descomenta y completa cuando agregues más proyectos reales).
+  // ---------------------------------------------------------------------------
+  /*
   {
     clase: 'proyecto-2',
     tag: 'Machine Learning',
@@ -143,4 +149,5 @@ export const proyectos: Proyecto[] = [
       { icon: 'fas fa-database', title: 'SQL' },
     ],
   },
+  */
 ];

@@ -1,5 +1,9 @@
 ---
 import { proyectos } from '../data/proyectos';
+
+// Con un solo proyecto usamos un layout "destacado" (spotlight) en vez del
+// carrusel, que se vería vacío. Con 2+ proyectos volvemos al carrusel.
+const unico = proyectos.length === 1 ? proyectos[0] : null;
 ---
 
 <div class="seccion-portafolio" id="portafolio">
@@ -12,6 +16,62 @@ import { proyectos } from '../data/proyectos';
     </p>
   </div>
 
+  {unico ? (
+    <div class={`proyecto-destacado ${unico.clase}`}>
+      <div
+        class="destacado-visual"
+        style={unico.screenshot ? `background-image: url('${unico.screenshot}')` : undefined}
+      >
+        {unico.galeria && (
+          <div class="destacado-galeria">
+            {unico.galeria.map((src, gi) => (
+              <img class="destacado-shot" src={src} alt={`${unico.titulo} captura ${gi + 1}`} loading="lazy" />
+            ))}
+          </div>
+        )}
+      </div>
+      <div class="destacado-info">
+        <span class="categoria-tag">{unico.tag}</span>
+        <h3 class="destacado-titulo">{unico.titulo}</h3>
+        <p class="destacado-desc">{unico.descripcion}</p>
+        {unico.detalles?.destacados && (
+          <ul class="destacado-lista">
+            {unico.detalles.destacados.slice(0, 3).map((d) => (
+              <li>
+                <i class="fas fa-check" />
+                <span>{d}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        <div class="tecnologias-iconos destacado-iconos">
+          {unico.iconos.map((ic) => (
+            <i class={ic.icon} title={ic.title} />
+          ))}
+        </div>
+        <div class="proyecto-enlaces destacado-enlaces">
+          {unico.codigo && (
+            <a class="enlace-proyecto" href={unico.codigo} target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github" />
+              <span>Código</span>
+            </a>
+          )}
+          {unico.demo && (
+            <a class="enlace-proyecto enlace-demo" href={unico.demo} target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt" />
+              <span>Demo</span>
+            </a>
+          )}
+          {unico.detalles && (
+            <button class="enlace-proyecto detalle-btn" data-modal-target="modal-0" title="Más información">
+              <i class="fas fa-info-circle" />
+              <span>Detalles</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  ) : (
   <div class="carrusel">
     <button class="carrusel-btn carrusel-btn-atras" aria-label="Anterior">
       <i class="fas fa-chevron-left"></i>
@@ -89,6 +149,7 @@ import { proyectos } from '../data/proyectos';
       <i class="fas fa-chevron-right"></i>
     </button>
   </div>
+  )}
 
   <div class="mas-proyectos">
     <div class="mas-proyectos-card">
@@ -835,6 +896,143 @@ import { proyectos } from '../data/proyectos';
 
   .mas-proyectos-card a i {
     font-size: 1.2rem;
+  }
+
+  /* ===== Proyecto destacado (cuando hay un solo proyecto) ===== */
+  .proyecto-destacado {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    max-width: 980px;
+    margin: 2rem auto 0;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    background: var(--glass-bg);
+  }
+
+  .destacado-visual {
+    position: relative;
+    min-height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background-size: cover;
+    background-position: center;
+    background-color: #05070d;
+  }
+
+  .destacado-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(5, 7, 13, 0.6), rgba(5, 7, 13, 0.4) 50%, rgba(0, 0, 0, 0.6));
+  }
+
+  .destacado-galeria {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .destacado-shot {
+    height: 360px;
+    width: auto;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    transition: var(--transition-smooth);
+  }
+
+  .destacado-shot:nth-child(1) {
+    transform: rotate(-10deg) translateX(46px) translateY(8px);
+  }
+
+  .destacado-shot:nth-child(2) {
+    transform: translateY(-8px);
+    z-index: 3;
+  }
+
+  .destacado-shot:nth-child(3) {
+    transform: rotate(10deg) translateX(-46px) translateY(8px);
+  }
+
+  .proyecto-destacado:hover .destacado-shot:nth-child(1) {
+    transform: rotate(-13deg) translateX(28px);
+  }
+
+  .proyecto-destacado:hover .destacado-shot:nth-child(3) {
+    transform: rotate(13deg) translateX(-28px);
+  }
+
+  .destacado-info {
+    padding: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .destacado-titulo {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0.4rem 0 0.8rem 0;
+    color: var(--color-texto-primario);
+  }
+
+  .destacado-desc {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-texto-primario);
+    opacity: 0.82;
+    margin: 0 0 1.3rem 0;
+  }
+
+  .destacado-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .destacado-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-texto-primario);
+    opacity: 0.85;
+  }
+
+  .destacado-lista i {
+    color: #10b981;
+    margin-top: 0.28rem;
+    font-size: 0.8rem;
+  }
+
+  .destacado-iconos {
+    margin-bottom: 1.6rem;
+  }
+
+  @media (max-width: 760px) {
+    .proyecto-destacado {
+      grid-template-columns: 1fr;
+    }
+    .destacado-visual {
+      min-height: 360px;
+    }
+    .destacado-shot {
+      height: 280px;
+    }
+    .destacado-info {
+      padding: 2rem;
+    }
   }
 
   @keyframes fadeInUp {
