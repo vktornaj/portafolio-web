@@ -1,3 +1,7 @@
+# Configuración de build de AWS Amplify Hosting.
+# Amplify usa este archivo automáticamente en cada push a la rama conectada:
+# instala dependencias, compila el sitio Astro y publica el contenido de `dist`.
+# No se necesita un workflow de GitHub Actions: el deploy es automático.
 version: 1
 frontend:
   phases:
@@ -8,9 +12,12 @@ frontend:
       commands:
         - npm run build
   artifacts:
+    # Astro genera el sitio estático en `dist`.
     baseDirectory: dist
     files:
       - '**/*'
   cache:
     paths:
+      # Acelera builds sucesivos reutilizando dependencias y la caché de npm.
       - node_modules/**/*
+      - .npm/**/*
