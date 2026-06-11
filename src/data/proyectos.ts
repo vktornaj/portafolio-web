@@ -43,6 +43,8 @@ export interface Proyecto {
   demo?: string;
   /** Ruta de la imagen de preview en /public, ej: '/assets/chatwizard.png'. */
   screenshot?: string;
+  /** Capturas de la app que se muestran solapadas (abanico) sobre el screenshot. */
+  galeria?: string[];
   /** Iconos de tecnologías (Font Awesome). */
   iconos: IconoTec[];
   /** Si está presente, muestra el botón "Detalles" que abre un modal. */
@@ -59,6 +61,7 @@ export const proyectos: Proyecto[] = [
     // Repo privado: sin botón "Código".
     demo: 'https://cw.geduardo.com/en',
     screenshot: '/assets/chatwizard.png',
+    galeria: ['/assets/cw-progress.jpg', '/assets/cw-context.jpg', '/assets/cw-pronunciation.jpg'],
     iconos: [
       { icon: 'fas fa-mobile-alt', title: 'Flutter' },
       { icon: 'fas fa-robot', title: 'IA / Chatbot' },

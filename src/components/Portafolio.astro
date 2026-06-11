@@ -22,7 +22,18 @@ import { proyectos } from '../data/proyectos';
           <div class={`elemento-carrusel ${p.clase} ${p.screenshot ? 'tiene-imagen' : ''}`}>
             <div class="caja-brillo"></div>
             {p.screenshot && (
-              <div class="proyecto-screenshot" style={`background-image: url('${p.screenshot}')`} />
+              <div
+                class={`proyecto-screenshot ${p.galeria ? 'tiene-galeria' : ''}`}
+                style={`background-image: url('${p.screenshot}')`}
+              >
+                {p.galeria && (
+                  <div class="proyecto-galeria">
+                    {p.galeria.map((src, gi) => (
+                      <img class="galeria-shot" src={src} alt={`${p.titulo} captura ${gi + 1}`} loading="lazy" />
+                    ))}
+                  </div>
+                )}
+              </div>
             )}
             <div class="caracteristicas-proyecto">
               <div class="info-proyecto">
@@ -241,7 +252,7 @@ import { proyectos } from '../data/proyectos';
   }
 
   .carrusel-contenido {
-    height: 450px;
+    height: 480px;
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -256,7 +267,7 @@ import { proyectos } from '../data/proyectos';
   }
 
   .elemento-carrusel {
-    height: 410px;
+    height: 440px;
     min-width: 290px;
     width: 290px;
     margin-right: 30px;
@@ -291,6 +302,62 @@ import { proyectos } from '../data/proyectos';
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, transparent 70%, rgba(0, 0, 0, 0.35));
+  }
+
+  /* Banda con abanico de capturas de la app */
+  .proyecto-screenshot.tiene-galeria {
+    flex-basis: 200px;
+    background-color: #05070d;
+  }
+
+  .proyecto-screenshot.tiene-galeria::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(5, 7, 13, 0.55),
+      rgba(5, 7, 13, 0.3) 50%,
+      rgba(0, 0, 0, 0.55)
+    );
+  }
+
+  .proyecto-galeria {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .galeria-shot {
+    height: 86%;
+    width: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+    transition: var(--transition-smooth);
+  }
+
+  .galeria-shot:nth-child(1) {
+    transform: rotate(-10deg) translateX(34px) translateY(6px);
+  }
+
+  .galeria-shot:nth-child(2) {
+    transform: translateY(-6px);
+    z-index: 3;
+  }
+
+  .galeria-shot:nth-child(3) {
+    transform: rotate(10deg) translateX(-34px) translateY(6px);
+  }
+
+  /* Al pasar el cursor, el abanico se abre un poco */
+  .elemento-carrusel:hover .galeria-shot:nth-child(1) {
+    transform: rotate(-13deg) translateX(18px) translateY(0);
+  }
+
+  .elemento-carrusel:hover .galeria-shot:nth-child(3) {
+    transform: rotate(13deg) translateX(-18px) translateY(0);
   }
 
   .tiene-imagen .caracteristicas-proyecto {
