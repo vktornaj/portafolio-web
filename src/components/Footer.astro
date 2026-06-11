@@ -9,3 +9,64 @@ import RedesSociales from './RedesSociales.astro';
     <RedesSociales />
   </div>
 </footer>
+
+<style>
+  .footer {
+    color: var(--color-texto-primario);
+    height: auto;
+    padding: 3rem 0;
+    grid-area: footer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--color-azul-claro2);
+    margin-top: 4rem;
+  }
+
+  .fila-1 {
+    margin-top: 0;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    width: auto;
+  }
+
+  .fila-2 {
+    margin-top: 0;
+    width: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .fila-2 > span {
+    display: inline-block;
+    margin-bottom: 0;
+    width: auto;
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  /* .redes/.icon los renderiza <RedesSociales />: override cross-componente */
+  .footer :global(.redes) {
+    margin-bottom: 0;
+  }
+
+  .footer :global(.icon) {
+    height: 2.2rem;
+    width: 2.2rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+      padding-bottom: 6rem;
+    }
+    .fila-2 {
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+  }
+</style>

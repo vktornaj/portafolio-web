@@ -21,12 +21,179 @@ const links = [
         <i class="fas fa-sun"></i>
       </span>
     </label>
-    <script is:inline>
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.getElementById('switch-mode').checked = 1;
-      } else {
-        document.getElementById('switch-mode').checked = 0;
-      }
-    </script>
   </div>
 </nav>
+
+<style>
+  .nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    grid-area: navbar;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1.2rem 8%;
+    transition: var(--transition-smooth);
+  }
+
+  .nav-bar span {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--color-texto-primario) 30%, var(--color-azul-claro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.03em;
+  }
+
+  .nav-end {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-end > ul {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-end > ul > li > a {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-texto-primario);
+    opacity: 0.8;
+  }
+
+  .nav-end > ul > li > a:hover {
+    color: var(--color-azul-claro);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .nav-bar {
+      padding: 1rem 5%;
+    }
+    .nav-end > ul {
+      display: none;
+    }
+  }
+
+  /* Switch modo claro/oscuro */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-azul-claro2);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px;
+    color: var(--color-texto-primario);
+  }
+
+  .slider > i {
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: '';
+    height: 20px;
+    width: 20px;
+    bottom: 2px;
+    left: 2px;
+    background-color: var(--color-azul-claro);
+    transition: var(--transition-smooth);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(22px);
+    background-color: var(--color-contraste-fuerte);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+  }
+
+  .slider.round {
+    border-radius: 34px;
+  }
+</style>
+
+<script>
+  // Modo oscuro / claro
+  const switchMode = document.getElementById('switch-mode') as HTMLInputElement;
+  const root = document.documentElement;
+
+  function activarOscuro() {
+    switchMode.checked = true;
+    root.style.setProperty('--color-azul-fuerte', '#121826');
+    root.style.setProperty('--color-azul-claro', '#6366f1');
+    root.style.setProperty('--color-azul-oscuro', '#090d16');
+    root.style.setProperty('--color-azul-claro2', '#1e293b');
+    root.style.setProperty('--color-azul-vivo', '#4f46e5');
+    root.style.setProperty('--color-oscuro-transparente', 'rgba(18, 24, 38, 0.7)');
+    root.style.setProperty('--color-fondo-textos', '#151c2c');
+    root.style.setProperty('--color-texto-primario', '#f8fafc');
+  }
+
+  function deactivarOscuro() {
+    switchMode.checked = false;
+    root.style.setProperty('--color-azul-fuerte', '#ffffff');
+    root.style.setProperty('--color-azul-claro', '#3b82f6');
+    root.style.setProperty('--color-azul-oscuro', '#f8fafc');
+    root.style.setProperty('--color-azul-claro2', '#e2e8f0');
+    root.style.setProperty('--color-azul-vivo', '#2563eb');
+    root.style.setProperty('--color-oscuro-transparente', 'rgba(255, 255, 255, 0.7)');
+    root.style.setProperty('--color-fondo-textos', '#ffffff');
+    root.style.setProperty('--color-texto-primario', '#0f172a');
+  }
+
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    activarOscuro();
+  } else {
+    deactivarOscuro();
+  }
+
+  switchMode?.addEventListener('change', () => {
+    if (switchMode.checked) {
+      activarOscuro();
+    } else {
+      deactivarOscuro();
+    }
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (e.matches) {
+      activarOscuro();
+    } else {
+      deactivarOscuro();
+    }
+  });
+</script>

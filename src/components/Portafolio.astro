@@ -105,3 +105,293 @@ const proyectos = [
     </span>
   </div>
 </div>
+
+<style>
+  .seccion-portafolio {
+    grid-area: portafolio;
+    width: 100%;
+  }
+
+  .portafolio-header {
+    text-align: center;
+    max-width: 46rem;
+    margin: 0 auto;
+  }
+
+  .titulo-seccion {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.025em;
+  }
+
+  .titulo-seccion::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-azul-claro), var(--color-contraste-fuerte));
+    border-radius: 2px;
+  }
+
+  .titulo-destacado {
+    font-size: 3rem;
+    letter-spacing: -0.035em;
+  }
+
+  .titulo-destacado::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 5px;
+  }
+
+  .portafolio-intro {
+    margin-top: 2rem;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+
+  .carrusel {
+    height: 380px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .carrusel-btn {
+    border: 1px solid var(--glass-border);
+    outline: none;
+    border-radius: 50%;
+    height: 44px;
+    width: 44px;
+    background: var(--color-azul-claro2);
+    color: var(--color-texto-primario);
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .carrusel-btn:hover {
+    background: var(--color-azul-claro);
+    color: white;
+    border-color: var(--color-azul-claro);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+  }
+
+  .carrusel-btn-atras {
+    position: absolute;
+    top: calc(50% - 22px);
+    left: -22px;
+  }
+
+  .carrusel-btn-adelante {
+    position: absolute;
+    top: calc(50% - 22px);
+    right: -22px;
+  }
+
+  .carrusel-contenido {
+    height: 320px;
+    display: flex;
+    overflow-x: hidden;
+    width: 100%;
+    padding: 10px 0;
+    box-sizing: border-box;
+  }
+
+  .elemento-carrusel {
+    height: 300px;
+    min-width: 230px;
+    margin-right: 40px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .elemento-carrusel:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-azul-claro);
+    box-shadow: 0 16px 36px rgba(99, 102, 241, 0.25);
+  }
+
+  /* Gradientes por proyecto */
+  .proyecto-1 { background: linear-gradient(135deg, #1e1b4b, #311042); }
+  .proyecto-2 { background: linear-gradient(135deg, #0b2545, #134074); }
+  .proyecto-3 { background: linear-gradient(135deg, #1c0a00, #3a1a00); }
+  .proyecto-4 { background: linear-gradient(135deg, #062f4f, #001f3f); }
+  .proyecto-5 { background: linear-gradient(135deg, #031b15, #0a3a2f); }
+
+  .caracteristicas-proyecto {
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(9, 13, 22, 0.95), rgba(9, 13, 22, 0.5) 75%, transparent);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .info-proyecto {
+    width: 100%;
+  }
+
+  .categoria-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-contraste-fuerte);
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .caracteristicas-proyecto h4 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: white;
+  }
+
+  .caracteristicas-proyecto p {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 0 0 1rem 0;
+    line-height: 1.45;
+  }
+
+  /* Iconos de tecnologías en las tarjetas */
+  .tecnologias-iconos {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 1.4rem;
+  }
+
+  .tecnologias-iconos .fa-html5 { color: #e34f26; }
+  .tecnologias-iconos .fa-css3-alt { color: #1572b6; }
+  .tecnologias-iconos .fa-js-square { color: #f7df1e; }
+  .tecnologias-iconos .fa-python { color: #3776ab; }
+  .tecnologias-iconos .fa-brain { color: var(--color-contraste-fuerte); }
+  .tecnologias-iconos .fa-rust { color: #f74c00; }
+  .tecnologias-iconos .fa-java { color: #5382a1; }
+  .tecnologias-iconos .fa-database { color: #336791; }
+  .tecnologias-iconos .fa-server { color: #a855f7; }
+  .tecnologias-iconos .fa-shield-alt { color: #10b981; }
+  .tecnologias-iconos .fa-project-diagram { color: #06b6d4; }
+  .tecnologias-iconos .fa-chart-line { color: #f43f5e; }
+
+  .tecnologias-usadas {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 0.8rem;
+    height: auto;
+  }
+
+  .mas-proyectos {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .mas-proyectos > span {
+    font-size: 0.95rem;
+    color: var(--color-texto-primario);
+    opacity: 0.85;
+  }
+
+  .mas-proyectos a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    text-decoration: none;
+    color: white;
+    background: var(--color-azul-claro2);
+    border: 1px solid var(--glass-border);
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: var(--transition-smooth);
+  }
+
+  .mas-proyectos a:hover {
+    background: var(--color-azul-claro);
+    border-color: var(--color-azul-claro);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.25);
+  }
+
+  .mas-proyectos i {
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .titulo-destacado {
+      font-size: 2.2rem;
+    }
+    .portafolio-intro {
+      font-size: 1rem;
+    }
+    .carrusel-contenido {
+      overflow-x: scroll;
+      padding-left: 1rem;
+    }
+    .carrusel-btn {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Carrusel del portafolio
+  const carruselContainer = document.querySelector('.carrusel') as HTMLElement;
+  const carrusel = document.getElementById('carruselId') as HTMLElement;
+  const btnAtras = document.querySelector('.carrusel-btn-atras');
+  const btnAdelante = document.querySelector('.carrusel-btn-adelante');
+  let carruselPos = 0;
+  const tElemento = 270;
+  const nElementos = 5;
+  const marginR = 40;
+
+  function scroll_x(npos: number) {
+    carrusel.scroll({ top: 0, left: npos, behavior: 'smooth' });
+  }
+
+  btnAtras?.addEventListener('click', () => {
+    if (carruselPos <= 0) return;
+    carruselPos -= tElemento;
+    scroll_x(carruselPos);
+  });
+
+  btnAdelante?.addEventListener('click', () => {
+    if (carruselPos >= tElemento * nElementos - marginR - carruselContainer.clientWidth) return;
+    carruselPos += tElemento;
+    scroll_x(carruselPos);
+  });
+</script>

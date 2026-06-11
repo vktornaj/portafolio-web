@@ -21,3 +21,32 @@ const redes = [
     ))
   }
 </div>
+
+<style>
+  .redes {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .icon {
+    height: 2.8rem;
+    width: 2.8rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-smooth);
+    color: var(--color-texto-primario);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .icon:hover {
+    transform: translateY(-4px);
+    background: var(--color-azul-claro);
+    border-color: var(--color-azul-claro);
+    color: white;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+  }
+</style>

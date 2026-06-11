@@ -20,3 +20,106 @@ const links = [
     }
   </ul>
 </div>
+
+<style>
+  .nav-movil {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 5%;
+    right: 5%;
+    height: 60px;
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 40px;
+    border: 1px solid var(--glass-border);
+    background: rgba(18, 24, 38, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    display: none;
+    z-index: 99;
+    overflow: hidden;
+    transition: bottom 0.3s ease;
+  }
+
+  .nav-movil > ul {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .nav-movil > ul > li {
+    margin-left: 0;
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-movil > ul > li:hover {
+    background: none;
+  }
+
+  .nav-movil > ul > li > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--color-texto-primario);
+    opacity: 0.7;
+    font-size: 0.75rem;
+    gap: 0.2rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+  }
+
+  .nav-movil > ul > li > a:hover {
+    opacity: 1;
+    color: var(--color-azul-claro);
+  }
+
+  .nav-movil > ul > li > a > i {
+    font-size: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .nav-movil {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  // Oculta/muestra la barra inferior según la dirección del scroll.
+  const navMovil = document.querySelector('.nav-movil') as HTMLElement | null;
+  const links = document.getElementsByTagName('a');
+  let active = true;
+
+  Array.from(links).forEach((link) => {
+    link.addEventListener('click', () => {
+      active = false;
+      setTimeout(() => {
+        active = true;
+      }, 100);
+    });
+  });
+
+  let scrollPos = 0;
+  let navPos = 0;
+  window.addEventListener('scroll', () => {
+    if (!active) return;
+    if (document.body.getBoundingClientRect().top > scrollPos) {
+      navPos -= 10; // arriba
+    } else {
+      navPos += 10; // abajo
+    }
+    if (navPos < 0) navPos = 0;
+    if (navPos > 70) navPos = 70;
+    if (navMovil) navMovil.style.bottom = '-' + navPos + 'px';
+    scrollPos = document.body.getBoundingClientRect().top;
+  });
+</script>
