@@ -11,13 +11,12 @@ frontend:
         # Node 16). Fijamos la versión con nvm antes de instalar dependencias.
         - nvm install 22
         - nvm use 22
-        # El package-lock.json se generó con npm 11; alineamos la versión de npm
-        # para que `npm ci` lea el lockfile con el mismo formato (npm 10 y 11
-        # registran las dependencias opcionales de forma distinta).
-        - npm install -g npm@11
         - node -v
-        - npm -v
-        - npm ci
+        # Usamos `npm install` (no `npm ci`): el lockfile se generó en macOS y
+        # npm omite del lockfile dependencias opcionales nativas de otras
+        # plataformas (p. ej. @emnapi/* de sharp para su variante wasm), lo que
+        # hace fallar el estricto `npm ci` en el entorno linux de Amplify.
+        - npm install
     build:
       commands:
         - npm run build
