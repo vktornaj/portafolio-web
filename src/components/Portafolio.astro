@@ -10,9 +10,10 @@ interface Props {
 const { lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 
-// Con un solo proyecto usamos un layout "destacado" (spotlight) en vez del
-// carrusel, que se vería vacío. Con 2+ proyectos volvemos al carrusel.
-const unico = proyectos.length === 1 ? proyectos[0] : null;
+// Con 1-3 proyectos usamos un layout "destacado" (spotlight) apilado en
+// zigzag —la galería alterna de lado— en vez del carrusel, que se vería
+// vacío. Con 4+ proyectos volvemos al carrusel.
+const apilado = proyectos.length <= 3;
 ---
 
 <div class="seccion-portafolio" id="portafolio">
@@ -22,60 +23,64 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
     <p class="portafolio-intro">{t.portafolio.intro}</p>
   </div>
 
-  {unico ? (
-    <div class={`proyecto-destacado ${unico.clase}`}>
-      <div
-        class="destacado-visual"
-        style={unico.screenshot ? `background-image: url('${unico.screenshot}')` : undefined}
-      >
-        {unico.galeria && (
-          <div class="destacado-galeria">
-            {unico.galeria.map((src, gi) => (
-              <img class="destacado-shot" src={src} alt={`${unico.titulo} captura ${gi + 1}`} loading="lazy" />
-            ))}
+  {apilado ? (
+    <div class="destacados-apilados">
+      {proyectos.map((p, i) => (
+        <div class={`proyecto-destacado ${p.clase} ${i % 2 === 1 ? 'invertido' : ''}`}>
+          <div
+            class="destacado-visual"
+            style={p.screenshot ? `background-image: url('${p.screenshot}')` : undefined}
+          >
+            {p.galeria && (
+              <div class="destacado-galeria">
+                {p.galeria.map((src, gi) => (
+                  <img class="destacado-shot" src={src} alt={`${p.titulo} captura ${gi + 1}`} loading="lazy" />
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <div class="destacado-info">
-        <span class="categoria-tag">{tr(unico.tag, lang)}</span>
-        <h3 class="destacado-titulo">{unico.titulo}</h3>
-        <p class="destacado-desc">{tr(unico.descripcion, lang)}</p>
-        {unico.detalles?.destacados && (
-          <ul class="destacado-lista">
-            {unico.detalles.destacados.slice(0, 3).map((d) => (
-              <li>
-                <i class="fas fa-check" />
-                <span>{tr(d, lang)}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-        <div class="tecnologias-iconos destacado-iconos">
-          {unico.iconos.map((ic) => (
-            <i class={ic.icon} title={ic.title} />
-          ))}
+          <div class="destacado-info">
+            <span class="categoria-tag">{tr(p.tag, lang)}</span>
+            <h3 class="destacado-titulo">{p.titulo}</h3>
+            <p class="destacado-desc">{tr(p.descripcion, lang)}</p>
+            {p.detalles?.destacados && (
+              <ul class="destacado-lista">
+                {p.detalles.destacados.slice(0, 3).map((d) => (
+                  <li>
+                    <i class="fas fa-check" />
+                    <span>{tr(d, lang)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div class="tecnologias-iconos destacado-iconos">
+              {p.iconos.map((ic) => (
+                <i class={ic.icon} title={ic.title} />
+              ))}
+            </div>
+            <div class="proyecto-enlaces destacado-enlaces">
+              {p.codigo && (
+                <a class="enlace-proyecto" href={p.codigo} target="_blank" rel="noopener noreferrer">
+                  <i class="fab fa-github" />
+                  <span>{t.portafolio.codigo}</span>
+                </a>
+              )}
+              {p.demo && (
+                <a class="enlace-proyecto enlace-demo" href={p.demo} target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt" />
+                  <span>{t.portafolio.demo}</span>
+                </a>
+              )}
+              {p.detalles && (
+                <button class="enlace-proyecto detalle-btn" data-modal-target={`modal-${i}`} title={t.portafolio.masInfo}>
+                  <i class="fas fa-info-circle" />
+                  <span>{t.portafolio.detalles}</span>
+                </button>
+              )}
+            </div>
+          </div>
         </div>
-        <div class="proyecto-enlaces destacado-enlaces">
-          {unico.codigo && (
-            <a class="enlace-proyecto" href={unico.codigo} target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-github" />
-              <span>{t.portafolio.codigo}</span>
-            </a>
-          )}
-          {unico.demo && (
-            <a class="enlace-proyecto enlace-demo" href={unico.demo} target="_blank" rel="noopener noreferrer">
-              <i class="fas fa-external-link-alt" />
-              <span>{t.portafolio.demo}</span>
-            </a>
-          )}
-          {unico.detalles && (
-            <button class="enlace-proyecto detalle-btn" data-modal-target="modal-0" title={t.portafolio.masInfo}>
-              <i class="fas fa-info-circle" />
-              <span>{t.portafolio.detalles}</span>
-            </button>
-          )}
-        </div>
-      </div>
+      ))}
     </div>
   ) : (
   <div class="carrusel">
@@ -907,17 +912,34 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
     font-size: 1.2rem;
   }
 
-  /* ===== Proyecto destacado (cuando hay un solo proyecto) ===== */
+  /* ===== Proyectos destacados apilados (con 1-3 proyectos) ===== */
+  .destacados-apilados {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+
   .proyecto-destacado {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
     max-width: 980px;
-    margin: 2rem auto 0;
+    width: 100%;
+    margin: 0 auto;
     border: 1px solid var(--glass-border);
     border-radius: var(--radius-md);
     box-shadow: var(--glass-shadow);
     overflow: hidden;
     background: var(--glass-bg);
+  }
+
+  /* Variante zigzag: la galería pasa al lado derecho */
+  .proyecto-destacado.invertido {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .proyecto-destacado.invertido .destacado-visual {
+    order: 2;
   }
 
   .destacado-visual {
@@ -1030,8 +1052,13 @@ const unico = proyectos.length === 1 ? proyectos[0] : null;
   }
 
   @media (max-width: 760px) {
-    .proyecto-destacado {
+    .proyecto-destacado,
+    .proyecto-destacado.invertido {
       grid-template-columns: 1fr;
+    }
+    /* En una sola columna la galería siempre va arriba */
+    .proyecto-destacado.invertido .destacado-visual {
+      order: 0;
     }
     .destacado-visual {
       min-height: 360px;
