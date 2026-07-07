@@ -118,4 +118,82 @@ export const proyectos: Proyecto[] = [
       stack: ['Flutter', 'Go', 'gRPC', 'WebSocket', 'REST', 'Docker', 'Clean Architecture'],
     },
   },
+  {
+    clase: 'proyecto-2',
+    tag: { es: 'React Native · Firebase', en: 'React Native · Firebase' },
+    titulo: 'Rutas MX',
+    descripcion: {
+      es: 'Plataforma colaborativa para consultar rutas de transporte público en México, validadas por la comunidad.',
+      en: 'Collaborative platform to browse public transit routes in Mexico, validated by the community.',
+    },
+    // Repo privado: sin botón "Código".
+    demo: 'https://master.d2cbrqrv6umeqb.amplifyapp.com/',
+    screenshot: '/assets/rutasmx.png',
+    galeria: ['/assets/rmx-explora.jpg', '/assets/rmx-contribuye.jpg', '/assets/rmx-perfil.jpg'],
+    iconos: [
+      { icon: 'fab fa-react', title: 'React Native / Expo' },
+      { icon: 'fas fa-fire', title: 'Firebase' },
+      { icon: 'fas fa-bus', title: 'Transporte público' },
+    ],
+    detalles: {
+      resumen: {
+        es:
+          'Rutas MX es una plataforma colaborativa para consultar rutas de camiones y combis en ' +
+          'México. Los usuarios exploran rutas en el mapa, planifican viajes y aportan correcciones ' +
+          'que la comunidad valida con sus votos. La app principal es móvil (Expo + React Native) ' +
+          'con backend en Firebase (Firestore + Cloud Functions).',
+        en:
+          'Rutas MX is a collaborative platform to browse bus and minibus routes in Mexico. Users ' +
+          'explore routes on the map, plan trips and submit corrections that the community validates ' +
+          'by voting. The main app is mobile (Expo + React Native) with a Firebase backend ' +
+          '(Firestore + Cloud Functions).',
+      },
+      arquitectura: {
+        es:
+          'Monorepo con Yarn workspaces: app móvil (Expo + React Native, expo-router, NativeWind), ' +
+          'landing en Astro y Cloud Functions. El código sigue Clean Architecture + DDD con capas ' +
+          'Domain, Application, Infrastructure y Presentation; el dominio no tiene dependencias ' +
+          'externas. Las rutas se componen de segmentos que solo escribe una Cloud Function cuando ' +
+          'las contribuciones alcanzan consenso comunitario.',
+        en:
+          'Monorepo with Yarn workspaces: mobile app (Expo + React Native, expo-router, NativeWind), ' +
+          'Astro landing page and Cloud Functions. The code follows Clean Architecture + DDD with ' +
+          'Domain, Application, Infrastructure and Presentation layers; the domain has zero external ' +
+          'dependencies. Routes are made of segments written only by a Cloud Function once ' +
+          'contributions reach community consensus.',
+      },
+      destacados: [
+        {
+          es: 'Rutas colaborativas: la comunidad propone y vota correcciones',
+          en: 'Collaborative routes: the community proposes and votes on corrections',
+        },
+        {
+          es: 'Consenso por Wilson Score (≥ 0.6, mínimo 3 votos)',
+          en: 'Consensus via Wilson Score (≥ 0.6, minimum 3 votes)',
+        },
+        {
+          es: 'Mapas con OpenStreetMap y consultas geoespaciales con GeoHash',
+          en: 'OpenStreetMap maps and geospatial queries with GeoHash',
+        },
+        {
+          es: 'Clean Architecture + DDD con tests unitarios, de reglas y E2E',
+          en: 'Clean Architecture + DDD with unit, rules and E2E tests',
+        },
+        {
+          es: 'Monorepo: app móvil (Expo), landing (Astro) y Cloud Functions',
+          en: 'Monorepo: mobile app (Expo), landing (Astro) and Cloud Functions',
+        },
+      ],
+      stack: [
+        'React Native',
+        'Expo',
+        'TypeScript',
+        'Firebase',
+        'Firestore',
+        'Cloud Functions',
+        'NativeWind',
+        'Clean Architecture',
+      ],
+    },
+  },
 ];
