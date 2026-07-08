@@ -263,11 +263,8 @@ const links = [
   const switchMode = document.getElementById('switch-mode') as HTMLInputElement;
   const root = document.documentElement;
 
-  const fotoPerfil = document.getElementById('foto-perfil') as HTMLImageElement | null;
-
   function activarOscuro() {
     switchMode.checked = true;
-    if (fotoPerfil) fotoPerfil.src = '/assets/perfil.png';
     root.style.setProperty('--color-azul-fuerte', '#121826');
     root.style.setProperty('--color-azul-claro', '#6366f1');
     root.style.setProperty('--color-azul-oscuro', '#090d16');
@@ -290,7 +287,6 @@ const links = [
 
   function deactivarOscuro() {
     switchMode.checked = false;
-    if (fotoPerfil) fotoPerfil.src = '/assets/perfil-claro.png';
     root.style.setProperty('--color-azul-fuerte', '#ffffff');
     root.style.setProperty('--color-azul-claro', '#3b82f6');
     root.style.setProperty('--color-azul-oscuro', '#f8fafc');
