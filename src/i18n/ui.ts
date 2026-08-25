@@ -45,6 +45,8 @@ export const ui = {
         'punta a punta.',
       verPortafolio: 'Ver Portafolio',
       descargarCV: 'Descargar CV',
+      // CV en español (carpeta de Drive con una versión por idioma).
+      cvUrl: 'https://drive.google.com/file/d/11hwX3kzabqIHseR4ScJbNRQ2I24zaeR-/view?usp=sharing',
       badgeSoftwareTitle: 'Software',
       badgeSoftwareSub: 'APIs & Sistemas',
       badgeIaTitle: 'IA Aplicada',
@@ -126,6 +128,8 @@ export const ui = {
         'problems: from backend design to models, agents and LLMs integrated end to end.',
       verPortafolio: 'View Portfolio',
       descargarCV: 'Download CV',
+      // CV en inglés (carpeta de Drive con una versión por idioma).
+      cvUrl: 'https://drive.google.com/file/d/1By3ec8bv3QAqmRDGoHPYInw0Q3ffiHPe/view?usp=sharing',
       badgeSoftwareTitle: 'Software',
       badgeSoftwareSub: 'APIs & Systems',
       badgeIaTitle: 'Applied AI',
