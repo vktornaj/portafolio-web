@@ -1,11 +1,13 @@
 ---
 // Iconos de redes sociales, reutilizado en "Sobre mí" y el footer.
+// `evento` es el nombre con el que el clic aparece en Umami.
 const redes = [
-  { href: 'https://twitter.com/victor2211812', icon: 'fab fa-twitter' },
-  { href: 'https://www.youtube.com/@vktornaj', icon: 'fab fa-youtube' },
+  { href: 'https://twitter.com/victor2211812', icon: 'fab fa-twitter', evento: 'social-twitter' },
+  { href: 'https://www.youtube.com/@vktornaj', icon: 'fab fa-youtube', evento: 'social-youtube' },
   {
     href: 'https://www.linkedin.com/in/víctor-eduardo-garcía-nájera-8a7a00175',
     icon: 'fab fa-linkedin-in',
+    evento: 'social-linkedin',
   },
 ];
 ---
@@ -13,7 +15,7 @@ const redes = [
 <div class="redes">
   {
     redes.map((red) => (
-      <a href={red.href} target="_blank">
+      <a href={red.href} target="_blank" data-umami-event={red.evento}>
         <div class="icon">
           <i class={red.icon} />
         </div>

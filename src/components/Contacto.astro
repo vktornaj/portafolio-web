@@ -26,7 +26,13 @@ const linkedinUrl =
 
   <p class="contacto-texto">{t.contacto.texto}</p>
 
-  <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" class="btn-linkedin">
+  <a
+    href={linkedinUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="btn-linkedin"
+    data-umami-event="contacto-linkedin"
+  >
     <i class="fab fa-linkedin-in"></i>
     <span>{t.contacto.boton}</span>
   </a>

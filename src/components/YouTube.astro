@@ -43,6 +43,8 @@ const t = useTranslations(lang);
                 href={`https://www.youtube.com/watch?v=${v.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-umami-event="video-youtube"
+                data-umami-event-video={titulo}
               >
                 <i class="fab fa-youtube" />
                 <span>{t.youtube.verEnYoutube}</span>
@@ -57,7 +59,7 @@ const t = useTranslations(lang);
   <div class="youtube-cta">
     <div class="youtube-cta-card">
       <span>{t.youtube.ctaTexto}</span>
-      <a href={canalYoutube.url} target="_blank" rel="noopener noreferrer">
+      <a href={canalYoutube.url} target="_blank" rel="noopener noreferrer" data-umami-event="canal-youtube">
         <i class="fab fa-youtube"></i>
         <span>{t.youtube.verCanal}</span>
       </a>

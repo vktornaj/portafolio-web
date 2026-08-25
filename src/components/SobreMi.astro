@@ -37,7 +37,7 @@ const t = useTranslations(lang);
   </div>
 
   <div class="accesos-rapidos">
-    <a href="#portafolio" class="btn-primary">
+    <a href="#portafolio" class="btn-primary" data-umami-event="ver-portafolio">
       <span>{t.hero.verPortafolio}</span>
       <i class="fas fa-arrow-right"></i>
     </a>
@@ -46,6 +46,8 @@ const t = useTranslations(lang);
       target="_blank"
       rel="noopener noreferrer"
       class="btn-secondary"
+      data-umami-event="descargar-cv"
+      data-umami-event-idioma={lang}
     >
       <i class="fas fa-download"></i>
       <span>{t.hero.descargarCV}</span>

@@ -1,0 +1,24 @@
+---
+// =============================================================================
+// ANALÍTICA (Umami)
+// =============================================================================
+// Script de Umami Cloud: mide visitas, procedencia y clics sin cookies, así que
+// no requiere banner de consentimiento.
+//
+// Configuración (variables de entorno, ver .env.example):
+//   - PUBLIC_UMAMI_WEBSITE_ID: id del sitio en Umami. SIN ella no se inserta
+//     nada, de modo que `npm run dev` en local no ensucia las métricas.
+//   - PUBLIC_UMAMI_SRC (opcional): URL del script. Solo hace falta si sirves el
+//     script desde tu propio dominio para esquivar bloqueadores.
+//
+// Los clics se miden con atributos en el HTML, sin escribir JS:
+//   <a href="..." data-umami-event="descargar-cv">
+// y se pueden acompañar de propiedades:
+//   data-umami-event-proyecto="Rutas MX"
+// =============================================================================
+
+const websiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const scriptSrc = import.meta.env.PUBLIC_UMAMI_SRC ?? 'https://cloud.umami.is/script.js';
+---
+
+{websiteId && <script is:inline defer src={scriptSrc} data-website-id={websiteId} />}

@@ -60,13 +60,13 @@ const apilado = proyectos.length <= 3;
             </div>
             <div class="proyecto-enlaces destacado-enlaces">
               {p.codigo && (
-                <a class="enlace-proyecto" href={p.codigo} target="_blank" rel="noopener noreferrer">
+                <a class="enlace-proyecto" href={p.codigo} target="_blank" rel="noopener noreferrer" data-umami-event="proyecto-codigo" data-umami-event-proyecto={p.titulo}>
                   <i class="fab fa-github" />
                   <span>{t.portafolio.codigo}</span>
                 </a>
               )}
               {p.demo && (
-                <a class="enlace-proyecto enlace-demo" href={p.demo} target="_blank" rel="noopener noreferrer">
+                <a class="enlace-proyecto enlace-demo" href={p.demo} target="_blank" rel="noopener noreferrer" data-umami-event="proyecto-demo" data-umami-event-proyecto={p.titulo}>
                   <i class="fas fa-external-link-alt" />
                   <span>{t.portafolio.demo}</span>
                 </a>
@@ -127,6 +127,8 @@ const apilado = proyectos.length <= 3;
                     target="_blank"
                     rel="noopener noreferrer"
                     title={t.portafolio.verRepo}
+                    data-umami-event="proyecto-codigo"
+                    data-umami-event-proyecto={p.titulo}
                   >
                     <i class="fab fa-github" />
                     <span>{t.portafolio.codigo}</span>
@@ -139,6 +141,8 @@ const apilado = proyectos.length <= 3;
                     target="_blank"
                     rel="noopener noreferrer"
                     title={t.portafolio.verDemo}
+                    data-umami-event="proyecto-demo"
+                    data-umami-event-proyecto={p.titulo}
                   >
                     <i class="fas fa-external-link-alt" />
                     <span>{t.portafolio.demo}</span>
@@ -165,7 +169,7 @@ const apilado = proyectos.length <= 3;
   <div class="mas-proyectos">
     <div class="mas-proyectos-card">
       <span>{t.portafolio.masProyectos}</span>
-      <a href="https://github.com/Vktornaj" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/Vktornaj" target="_blank" rel="noopener noreferrer" data-umami-event="github-perfil">
         <i class="fab fa-github"></i>
         <span>{t.portafolio.verGithub}</span>
       </a>
@@ -216,13 +220,13 @@ const apilado = proyectos.length <= 3;
 
               <div class="proyecto-enlaces modal-enlaces">
                 {p.codigo && (
-                  <a class="enlace-proyecto" href={p.codigo} target="_blank" rel="noopener noreferrer">
+                  <a class="enlace-proyecto" href={p.codigo} target="_blank" rel="noopener noreferrer" data-umami-event="proyecto-codigo" data-umami-event-proyecto={p.titulo}>
                     <i class="fab fa-github" />
                     <span>{t.portafolio.codigo}</span>
                   </a>
                 )}
                 {p.demo && (
-                  <a class="enlace-proyecto enlace-demo" href={p.demo} target="_blank" rel="noopener noreferrer">
+                  <a class="enlace-proyecto enlace-demo" href={p.demo} target="_blank" rel="noopener noreferrer" data-umami-event="proyecto-demo" data-umami-event-proyecto={p.titulo}>
                     <i class="fas fa-external-link-alt" />
                     <span>{t.portafolio.demo}</span>
                   </a>
